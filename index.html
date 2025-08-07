@@ -5,227 +5,180 @@
     <title>PLANIFICACIÓN DE EVENTOS</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- DataTable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-
-    <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
     <style>
         body {
             font-family: 'Roboto','Open Sans', Arial, sans-serif;
             background-color: #ffffff;
             color: #1D2B4F;
         }
-
-        .logo-tigre {
-            height: 60px;
-            object-fit: contain;
-           
-        }
-        .logo-unemi {
-            height: 50px;
-            object-fit: contain;
-           
-        }
-        .franja-superior {
-            background-color: #1D2B4F;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            vertical-align: middle;
-        }
-        .franja-naranja {
-            height: 10px;
-            background-color: #F39200;
-        }
-        
-    
+        .logo-tigre { height: 60px; object-fit: contain; }
+        .logo-unemi { height: 50px; object-fit: contain; }
+        .franja-superior { background-color: #1D2B4F; color: white; font-size: 22px; font-weight: bold; vertical-align: middle;}
+        .franja-naranja { height: 10px; background-color: #F39200;}
+        .titulo-seccion { background-color: #e5e5e5; font-weight: bold; padding: 10px 15px; border-radius: 6px; font-size: 16px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
-
-
-<!-- Encabezado -->
 <div class="franja-superior d-flex justify-content-between align-items-center px-3">
-  <div class="d-flex align-items-center">
-  </div>
   <div class="text-center flex-grow-1">
     <h2 style="color:white;" class="fw-bold">Planificación de Eventos</h2>
   </div>
-  <div class="d-flex align-items-center justify-content-end">
-  </div>
 </div>
 <div class="franja-naranja"></div>
-<!-- Contenido -->
-<!-- Detalle Eventos -->
+
 <div class="container mt-4">
   <div class="course-container">
     <div class="titulo-seccion">DATOS SOLICITANTE</div>
-
-<div class="container mt-4">
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <label for="solicitante" class="form-label fw-bold">Nombre del solicitante:</label>
-      <input type="text" class="form-control" id="solicitante" name="solicitante" required>
-    </div>
-    <div class="col-md-6">
-      <label for="unidad" class="form-label fw-bold">Nombre de la Unidad Organizacional:</label>
-      <input type="text" class="form-control" id="unidad" name="unidad" required>
-    </div>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <label for="correo" class="form-label fw-bold">Correo institucional:</label>
-      <input type="email" class="form-control" id="correo" name="correo" required>
-    </div>
+    <!-- El formulario DEBE envolver TODOS los campos -->
+    <form id="miFormulario">
+      <div class="container mt-4">
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="solicitante" class="form-label fw-bold">Nombre del solicitante:</label>
+            <input type="text" class="form-control" id="solicitante" name="solicitante" required>
+          </div>
+          <div class="col-md-6">
+            <label for="unidad" class="form-label fw-bold">Nombre de la Unidad Organizacional:</label>
+            <input type="text" class="form-control" id="unidad" name="unidad" required>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="correo" class="form-label fw-bold">Correo institucional:</label>
+            <input type="email" class="form-control" id="correo" name="correo" required>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-4">
+        <div class="course-container">
+          <div class="titulo-seccion">DETALLE EVENTOS</div>
+          <table class="table table-bordered text-center" id="tablaEventos">
+            <thead>
+              <tr>
+                <th>Tipo Evento</th>
+                <th>Nombre Evento</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Participantes</th>
+                <th>Descripción</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTabla"></tbody>
+          </table>
+          <button type="button" class="btn btn-outline-success" onclick="agregarFila()">+ Añadir nueva fila</button>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">Enviar formulario</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 
-<!-- Detalle Eventos -->
-<div class="container mt-4">
-  <div class="course-container">
-    <div class="titulo-seccion">DETALLE EVENTOS</div>
-        <table class="table table-bordered text-center" id="tablaEventos">
-          <thead>
-            <tr>
-              <th>Tipo Evento</th>
-              <th>Nombre Evento</th>
-              <th>Fecha Inicio</th>
-              <th>Fecha Fin</th>
-              <th>Participantes</th>
-              <th>Descripción</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody id="cuerpoTabla"></tbody>
-        </table>
+<script>
+  const tiposEventos = [
+    "Sesión Solemne de Aniversario Institucional",
+    "Audiencia Pública de Rendición de Cuentas, dispuesta por el Consejo de Participación Ciudadana y Control Social",
+    "Aniversario de fundación de las facultades",
+    "Ceremonias de graduación de grado y posgrado",
+    "Ceremonia Honoris Causa",
+    "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros",
+    "Socialización de planes de las unidades organizacionales",
+    "Ceremonia de bienvenida al inicio de periodo académico",
+    "Casas abiertas de las facultades",
+    "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
+    "Entrega de Reconocimiento por rendimiento académico",
+    "Momento Cívico",
+    "Firma de convenios interinstitucionales y/o de cooperación interinstitucional",
+    "Ferias emprendedoras",
+    "Festival",
+    "Novatada Cultural Institucional"
+  ];
 
-        <button type="button" class="btn btn-outline-success" onclick="agregarFila()">+ Añadir nueva fila</button>
-
-        <div class="text-center mt-4">
-          <button type="submit" class="btn btn-primary px-4 py-2">Enviar formulario</button>
-        </div>
-      </form>
-    </div>
-<!-- Estilo para el encabezado de sección -->
-<style>
-  .titulo-seccion {
-    background-color: #e5e5e5;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 6px;
-    font-size: 16px;
-    margin-bottom: 20px;
+  function agregarFila() {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td><select class="form-select" name="tipo_evento[]" required>
+        <option value="">Seleccione</option>
+        ${tiposEventos.map(e => <option>${e}</option>).join('')}
+      </select></td>
+      <td><input type="text" class="form-control" name="nombre_evento[]" required></td>
+      <td><input type="date" class="form-control" name="fecha_inicio[]" required></td>
+      <td><input type="date" class="form-control" name="fecha_fin[]" required></td>
+      <td><input type="number" class="form-control" name="participantes[]" required></td>
+      <td><textarea class="form-control" name="descripcion[]" rows="1" required></textarea></td>
+      <td><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">✕</button></td>
+    `;
+    document.getElementById("cuerpoTabla").appendChild(fila);
   }
+  window.onload = agregarFila;
 
-</style>
-    <script>
-  function formatearFechaHora(fecha) {
-    const fechaObj = new Date(fecha);
-    const fechaFormateada = fechaObj.toLocaleDateString('es-EC', {
-      day: '2-digit', month: '2-digit', year: 'numeric'
-    });
-    return `${fechaFormateada}`;
-  }
-      const tiposEventos = [
-        "Sesión Solemne de Aniversario Institucional",
-        "Audiencia Pública de Rendión de Cuentas, dispuesta por el Consejo de Participación Ciudadana y Control Social",
-        "Aniversario de fundación de las facultades",
-        "Ceremonias de graduación de grado y posgrado",
-        "Ceremonia Honoris Causa",
-        "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros",
-        "Socialización de planes de las unidades organizacionales",
-        "Ceremonia de bienvenida al inicio de periodo académico",
-        "Casas abiertas de las facultades",
-        "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
-        "Entrega de Reconocimiento por rendimiento académico",
-        "Momento Cívico",
-        "Firma de convenios interinstitucionales y/o de cooperación interinstitucional",
-        "Ferias emprendedoras",
-        "Festival",
-        "Novatada Cultural Institucional"
-      ];
+  document.getElementById("miFormulario").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-      function agregarFila() {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td><select class="form-select" name="tipo_evento[]" required>
-            <option value="">Seleccione</option>
-            ${tiposEventos.map(e => `<option>${e}</option>`).join('')}
-          </select></td>
-          <td><input type="text" class="form-control" name="nombre_evento[]" required></td>
-          <td><input type="date" class="form-control" name="fecha_inicio[]" required></td>
-          <td><input type="date" class="form-control" name="fecha_fin[]" required></td>
-          <td><input type="number" class="form-control" name="participantes[]" required></td>
-          <td><textarea class="form-control" name="descripcion[]" rows="1" required></textarea></td>
-          <td><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">✕</button></td>
-        `;
-        document.getElementById("cuerpoTabla").appendChild(fila);
-      }
-      window.onload = agregarFila;
+    const solicitante = document.getElementById("solicitante").value;
+    const unidad = document.getElementById("unidad").value;
+    const correo = document.getElementById("correo").value;
 
-      document.getElementById("miFormulario").addEventListener("submit", async function (e) {
-        e.preventDefault();
+    const filas = document.querySelectorAll("#cuerpoTabla tr");
+    const eventos = [];
 
-        const nombre = document.getElementById("nombre").value;
-        const unidad = document.getElementById("unidad").value;
-        const correo = document.getElementById("correo").value;
-
-        const filas = document.querySelectorAll("#cuerpoTabla tr");
-        const eventos = [];
-
-        filas.forEach(fila => {
-          eventos.push({
-            tipo_evento: fila.querySelector('select[name="tipo_evento[]"]').value,
-            nombre_evento: fila.querySelector('input[name="nombre_evento[]"]').value,
-            fecha_inicio: fila.querySelector('input[name="fecha_inicio[]"]').value,
-            fecha_fin: fila.querySelector('input[name="fecha_fin[]"]').value,
-            participantes: fila.querySelector('input[name="participantes[]"]').value,
-            descripcion: fila.querySelector('textarea[name="descripcion[]"]').value
-          });
-        });
- // Usamos FormData y enviamos eventos como string (JSON)
-  const formData = new FormData();
-  formData.append('nombre', nombre);
-  formData.append('unidad', unidad);
-  formData.append('correo', correo);
-  formData.append('eventos', JSON.stringify(eventos)); // Enviamos array como texto
-const scriptURL = "https://script.google.com/macros/s/AKfycbzcNVXUXEa0GPt_A-FEXi-Mol3tPgTjR2onS_rXqFyNqFVmbw3_tJWn0nbfBSnf-BwoFA/exec";
-   try {
-    const res = await fetch(scriptURL, {
-      method: "POST",
-      body: formData
-    });
- const data = await res.json();
-    if (data.status === "ok") {
-      Swal.fire({
-        icon: "success",
-        title: "Formulario enviado correctamente",
-        text: "Los eventos han sido registrados en la hoja de cálculo"
+    filas.forEach(fila => {
+      eventos.push({
+        tipo_evento: fila.querySelector('select[name="tipo_evento[]"]').value,
+        nombre_evento: fila.querySelector('input[name="nombre_evento[]"]').value,
+        fecha_inicio: fila.querySelector('input[name="fecha_inicio[]"]').value,
+        fecha_fin: fila.querySelector('input[name="fecha_fin[]"]').value,
+        participantes: fila.querySelector('input[name="participantes[]"]').value,
+        descripcion: fila.querySelector('textarea[name="descripcion[]"]').value
       });
-      document.getElementById("miFormulario").reset();
-      document.getElementById("cuerpoTabla").innerHTML = "";
-      agregarFila();
-    } else {
-      throw new Error(data.message || "Respuesta inesperada del servidor");
-    }
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      html: `<b>No se pudo enviar el formulario</b><br><pre>${error.message}</pre>`
     });
-  }
-});
-    </script>
-  </body>
+
+    // Usamos FormData y enviamos eventos como string (JSON)
+    const formData = new FormData();
+    formData.append('solicitante', solicitante);
+    formData.append('unidad', unidad);
+    formData.append('correo', correo);
+    formData.append('eventos', JSON.stringify(eventos)); // Enviamos array como texto
+
+    // Tu URL de Apps Script:
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzcNVXUXEa0GPt_A-FEXi-Mol3tPgTjR2onS_rXqFyNqFVmbw3_tJWn0nbfBSnf-BwoFA/exec";
+
+    try {
+      const res = await fetch(scriptURL, {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      if (data.status === "ok") {
+        Swal.fire({
+          icon: "success",
+          title: "Formulario enviado correctamente",
+          text: "Los eventos han sido registrados en la hoja de cálculo"
+        });
+        document.getElementById("miFormulario").reset();
+        document.getElementById("cuerpoTabla").innerHTML = "";
+        agregarFila();
+      } else {
+        throw new Error(data.message || "Respuesta inesperada del servidor");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        html: <b>No se pudo enviar el formulario</b><br><pre>${error.message}</pre>
+      });
+    }
+  });
+</script>
+</body>
 </html>
