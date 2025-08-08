@@ -93,7 +93,6 @@ const tiposPorCategoria = {
     "Casas abiertas de las facultades",
     "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
     "Entrega de Reconocimiento por rendimiento académico",
-    "Inauguración de obras",
     "Momento Cívico"
   ],
   "Eventos Interinstitucionales": ["Firma de convenios interinstitucionales y/o de cooperación interinstitucional."],
@@ -183,8 +182,17 @@ function mostrarFormularioDetalle(index = -1) {
         <input type="text" class="form-control" id="responsable" value="${evento.responsable||''}">
       </div>
       <div class="col-md-6">
-        <label class="form-label">Celular</label>
-        <input type="tel" class="form-control" id="celular" value="${evento.celular||''}">
+        <label for="celular" class="form-label">Celular:</label>
+        <input type="tel" class="form-control" id="celular"
+          name="celular"
+          pattern="^[0-9]{10}$"
+          maxlength="10"
+          inputmode="numeric"
+          placeholder="Ej: 0987654321"
+          oninvalid="this.setCustomValidity('Debe ingresar exactamente 10 números.')"
+          oninput="this.setCustomValidity('')"
+          value="${evento.celular||''}"
+          required>
       </div>
     </div>
 
@@ -194,16 +202,87 @@ function mostrarFormularioDetalle(index = -1) {
   `;
 
   document.getElementById("detalleEvento").style.display = "block";
+  // Validación dinámica: Fecha Fin no puede ser menor que Fecha Inicio
+setTimeout(() => {
+  const fechaInicioInput = document.getElementById('fecha_inicio');
+  const fechaFinInput = document.getElementById('fecha_fin');
+
+  if (fechaInicioInput && fechaFinInput) {
+    const validarFechas = () => {
+      const inicio = new Date(fechaInicioInput.value);
+      const fin = new Date(fechaFinInput.value);
+
+      if (fechaInicioInput.value && fechaFinInput.value && fin < inicio) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Fecha no válida',
+          text: 'La fecha de fin no puede ser menor a la fecha de inicio.'
+        });
+        fechaFinInput.value = '';
+      }
+    };
+
+    fechaInicioInput.addEventListener('change', validarFechas);
+    fechaFinInput.addEventListener('change', validarFechas);
+  }
+}, 0);
+
   actualizarTipoEvento(evento.tipo_evento);
+  // Validación del campo celular para permitir solo números
+setTimeout(() => {
+      const inputCelular = document.getElementById('celular');
+      if (inputCelular) {
+        inputCelular.addEventListener('input', function (e) {
+          this.value = this.value.replace(/[^0-9]/g, '');
+// Asegura que si el primer dígito es eliminado, no se pierda el 0 al inicio
+      if (this.value.length > 0 && this.value.charAt(0) !== '0') {
+        this.value = '0' + this.value;
+      }
+
+      // Limita a máximo 10 caracteres
+      if (this.value.length > 10) {
+        this.value = this.value.slice(0, 10);
+      }
+
+    });
+  }
+}, 0);
 }
 
 function actualizarTipoEvento(seleccionada = "") {
   const categoria = document.getElementById("categoria").value;
   const tipo_evento = document.getElementById("tipo_evento");
   tipo_evento.innerHTML = "<option value=''>Seleccione</option>" + (tiposPorCategoria[categoria]||[]).map(e => `<option ${e===seleccionada?"selected":''}>${e}</option>`).join('');
+  tipo_evento.addEventListener('change', validarCamposDeFechas); // Vincula validación dinámica al cambio de tipo
+  validarCamposDeFechas(); // Llama inmediatamente para validar si ya viene precargado
+}
+function validarCamposDeFechas() {
+  const categoria = document.getElementById("categoria").value;
+  const tipoEvento = document.getElementById("tipo_evento").value;
+
+  const filaFechas = document.querySelectorAll("#fecha_inicio, #fecha_fin, #hora_inicio, #hora_fin");
+
+  const esEventoGraduacion = (
+    categoria === "Eventos Solemnes" &&
+    tipoEvento === "Ceremonias de graduación de grado y posgrado"
+  );
+
+  filaFechas.forEach(input => {
+    const formGroup = input.closest('.col-md-3') || input.closest('.col-md-6');
+
+    if (esEventoGraduacion) {
+      input.required = false;
+      input.value = ''; // Limpia el campo
+      if (formGroup) formGroup.style.display = 'none';
+    } else {
+      input.required = true;
+      if (formGroup) formGroup.style.display = 'block';
+    }
+  });
 }
 
 function guardarEvento() {
+
   const evento = {
     categoria: document.getElementById("categoria").value,
     tipo_evento: document.getElementById("tipo_evento").value,
@@ -217,8 +296,9 @@ function guardarEvento() {
     alcance: document.getElementById("alcance").value,
     descripcion: document.getElementById("descripcion").value,
     responsable: document.getElementById("responsable").value,
-    celular: document.getElementById("celular").value
+    celular: "'" + document.getElementById("celular").value
   };
+
 
   if (editarIndex >= 0) eventos[editarIndex] = evento;
   else eventos.push(evento);
@@ -241,7 +321,7 @@ function mostrarTablaResumen() {
       <td>${e.hora_fin}</td>
       <td>${e.participantes}</td>
       <td>
-        <button class='btn btn-sm btn-warning' onclick='mostrarFormularioDetalle(${i})'>Editar</button>
+        <button type="button" class='btn btn-sm btn-warning' onclick='mostrarFormularioDetalle(${i})'>Editar</button>
         <button class='btn btn-sm btn-danger' onclick='eliminarEvento(${i})'>Eliminar</button>
       </td>
     </tr>
@@ -265,7 +345,7 @@ document.getElementById("formularioEvento").addEventListener("submit", async fun
       Swal.showLoading();
     }
   });
-   
+
   const formData = new FormData();
   formData.append("nombre", document.getElementById("nombre").value);
   formData.append("unidad", document.getElementById("unidad").value);
