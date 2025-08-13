@@ -287,16 +287,16 @@ function guardarEvento() {
     categoria: document.getElementById("categoria").value,
     tipo_evento: document.getElementById("tipo_evento").value,
     nombre_evento: document.getElementById("nombre_evento").value,
-    espacio: document.getElementById("espacio").value,
     fecha_inicio: document.getElementById("fecha_inicio").value,
-    hora_inicio: document.getElementById("hora_inicio").value,
     fecha_fin: document.getElementById("fecha_fin").value,
-    hora_fin: document.getElementById("hora_fin").value,
     participantes: document.getElementById("participantes").value,
-    alcance: document.getElementById("alcance").value,
     descripcion: document.getElementById("descripcion").value,
     responsable: document.getElementById("responsable").value,
-    celular: "'" + document.getElementById("celular").value
+    celular: "'" + document.getElementById("celular").value,
+    alcance: document.getElementById("alcance").value,
+    hora_inicio: document.getElementById("hora_inicio").value,
+    hora_fin: document.getElementById("hora_fin").value,
+    espacio: document.getElementById("espacio").value
   };
 
 
@@ -364,5 +364,6 @@ document.getElementById("formularioEvento").addEventListener("submit", async fun
   }
 });
 </script>
+
 </body>
 </html>
