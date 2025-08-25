@@ -437,7 +437,32 @@
           <!-- CAMBIO 3: Añadir campo oculto para la dirección responsable -->
           <input type="hidden" id="direccionResponsable" name="direccion_responsable">
 
-        
+        <!-- ========================================================== -->
+    <!--          NUEVO BLOQUE DE TÉRMINOS Y CONDICIONES          -->
+    <!-- ========================================================== -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="terminos" required/>
+            <label class="form-check-label texto-mediano" for="terminos">
+        Acepto los 
+        <a href="https://docs.google.com/document/d/1PNRoHcDD0k8BwewJDjTy6VdTOtCmurF_/edit?usp=drive_link&ouid=110049633757378533995&rtpof=true&sd=true"
+           target="_blank" rel="noopener noreferrer">
+          Términos y Condiciones
+        </a>
+        y el 
+        <a href="https://drive.google.com/file/d/1nQ1PjQqttC3Ho_ONk7p7AFIMt6Ok3NWL/view?usp=drive_link"
+           target="_blank" rel="noopener noreferrer">
+          Protocolo para el Desarrollo de Eventos
+        </a>.
+      </label>
+       <div class="form-text">
+        Debe aceptar esta casilla para poder enviar la solicitud.
+        </div>
+      </div>
+    </div>
+    <!-- ========================================================== -->
+    
           <input type="hidden" id="estado_solicitud" name="estado_solicitud" value="PENDIENTE">
           <div class="modal-footer">
             <button id="btn-enviar" type="submit" class="btn btn-primary">Enviar Solicitud</button>
@@ -960,24 +985,33 @@ document.addEventListener('click', e => {
   document.getElementById("direccionResponsable").value = direccionResponsable || "";
   document.getElementById("nombre").value = nombreEspacio || "";
 
-   // 👇 Mostrar/ocultar el campo "Link de recursos"
-  const recursosContainer = document.getElementById("recursos-container");
-  if (["Auditorio A", "Auditorio V", "Auditorio W"].includes(nombreEspacio)) {
-    recursosContainer.style.display = "block";  // mostrar
-  } else {
-    recursosContainer.style.display = "none";   // ocultar
-  }
+   // Normaliza el nombre del espacio (quita tildes, mayúsculas y espacios extra)
+const normalizar = s => (s || "")
+  .normalize("NFD").replace(/\p{Diacritic}/gu, "")
+  .trim().toUpperCase();
 
+const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"]
+  .includes(normalizar(nombreEspacio));
 
-// Forzar hora fin a 17:00 sólo en auditorios; quitar límite en otros espacios
+// 👇 Mostrar/ocultar y required dinámico
+const recursosContainer = document.getElementById("recursos-container");
+const recursosInput = document.getElementById("recursos");
+
+if (esAuditorio) {
+  recursosContainer.style.display = "block";
+  recursosInput.setAttribute("required", "required");
+} else {
+  recursosContainer.style.display = "none";
+  recursosInput.removeAttribute("required");
+}
+
+// Tope de hora fin solo en auditorios
 const horaFinInput = document.getElementById("hora_fin");
-if (["Auditorio A", "Auditorio V", "Auditorio W"].includes(nombreEspacio)) {
+if (esAuditorio) {
   horaFinInput.value = "17:00";
   horaFinInput.setAttribute("max", "17:00");
 } else {
-  // Asegura que no quede "pegado" de una selección anterior
   horaFinInput.removeAttribute("max");
-  // Si venías de un auditorio, limpia el valor por claridad (opcional)
   if (horaFinInput.value === "17:00") horaFinInput.value = "";
 }
 
@@ -1040,17 +1074,28 @@ document.getElementById('modalReserva').addEventListener('hidden.bs.modal', () =
   form.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
   // habilitar el botón enviar
   document.getElementById('btn-enviar').removeAttribute('disabled');
+  // 👇 limpiar estado del campo recursos siempre
+  document.getElementById("recursos-container").style.display = "none";
+  document.getElementById("recursos").removeAttribute("required");
 });
 
 
-// --- Formulario ---
-document.getElementById('formulario-espacio').addEventListener('submit', async e => {
-  debugger;  
+  // --- Formulario ---
+  document.getElementById('formulario-espacio').addEventListener('submit', async e => {
   e.preventDefault();
 
-  // Validación específica para los auditorios con restricción
+
+  // Normalizar nombre (mayúsculas, sin tildes, sin espacios extra)
+const normalizar = s => (s || "")
+  .normalize("NFD").replace(/\p{Diacritic}/gu, "")
+  .trim().toUpperCase();
+
 const espacioNombre = document.getElementById("nombre").value;
-if (["Auditorio A", "Auditorio V", "Auditorio W"].includes(espacioNombre)) {
+const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"]
+  .includes(normalizar(espacioNombre));
+
+if (esAuditorio) {
+  // Validar hora fin
   const horaFin = document.getElementById("hora_fin").value;
   if (horaFin !== "17:00") {
     Swal.fire({
@@ -1060,6 +1105,27 @@ if (["Auditorio A", "Auditorio V", "Auditorio W"].includes(espacioNombre)) {
     });
     return;
   }
+
+  // Validar link de recursos
+  const recursos = document.getElementById("recursos").value.trim();
+  if (!recursos) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campo requerido',
+      text: 'Debe ingresar un link de recursos en este espacio.'
+    });
+    return;
+  }
+}
+
+const chkTerminos = document.getElementById('terminos');
+if (!chkTerminos || !chkTerminos.checked) {
+  Swal.fire({
+    icon: 'warning',
+    title: 'Debe aceptar los Términos y Condiciones',
+    text: 'Marque la casilla "Acepto los Términos y Condiciones" para continuar.'
+  });
+  return;
 }
 
    espacioSeleccionadoId = document.getElementById('espacioSeleccionado').value;
