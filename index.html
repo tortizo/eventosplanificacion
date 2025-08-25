@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
   <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 
-
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -19,218 +18,47 @@
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-
-   <!-- FullCalendar CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
-    <!-- FullCalendar JS -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
 
   <style>
-    body {
-      font-family: 'Roboto','Open Sans', Arial, sans-serif;
-      background-color: #ffffff;
-      color: #1D2B4F;
-    }
-
-    .logo-tigre {
-      height: 60px;
-      object-fit: contain;
-    }
-
-    .logo-unemi {
-      height: 50px;
-      object-fit: contain;
-    }
-
-    .franja-superior {
-      background-color: #1D2B4F;
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .franja-naranja {
-      height: 10px;
-      background-color: #F39200;
-    }
-
-    .card-img-top {
-      height: 200px;
-      object-fit: cover;
-    }
-    .custom-modal-width {
-      max-width: 60vw;
-      width: 100%;
-      margin: 20px auto;
-    }
-    .custom-modal-width {
-      max-width: 60vw;
-      width: 100%;
-      margin: 20px auto;
-    }
-
-    .text-naranja-oscuro {
-      color: #d97706 !important;
-    }
-
-    .titulo-espacio {
-      color: #1D2B4F;
-    }
-
-    .card-inactivo {
-      background-color: #f8d7da;
-      border-color: #dc3545;
-    }
-
-    .card-mantenimiento {
-      background-color: #e2e3e5;
-      border-color: #6c757d;
-    }
-    .texto-pequeno {
-    font-size: 0.9rem;
-    }
-    .texto-mediano {
-    font-size: 1rem;
-    }
-    
-    .card-reservado {
-      background-color: #e2e3e5; /* Gris para mantenimiento */
-    }
-
-    .btn-reservar:disabled {
-      background-color: #dc3545; /* Rojo para inactivo */
-      cursor: not-allowed;
-    }
-    .fc .fc-toolbar-title {
-      font-size: 1.25rem;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar {
-      margin-bottom: 0.85rem;
-    }
-
-    .fc .fc-daygrid-day-events {
-      display: none; /* Oculta eventos debajo del número */
-    }
-
-    /*  FULLCALENDAR - ESTRUCTURA Y CELDAS */
-    .fc-theme-standard td,
-    .fc-theme-standard th,
-    .fc-theme-standard .fc-scrollgrid,
-    .fc-theme-standard .fc-scrollgrid-section,
-    .fc-theme-standard .fc-scrollgrid-sync-table,
-    .fc-theme-standard .fc-scrollgrid-sync-inner {
-      border: none !important;
-      box-shadow: none !important;
-    }
-
-    .fc-daygrid-day {
-      background-color: #f0f0f0 !important; /* Fondo uniforme para todo el calendario */
-    }
-
-    .fc-daygrid-day-frame {
-      height: 40px !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      transition: all 0.2s ease-in-out;
-      gap: 5px;
-    }
-
-    .fc-daygrid-day-top {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Oculta filas sin días del mes actual */
-    .fc-daygrid-body tr {
-      display: none;
-    }
-
-    .fc-daygrid-body tr:has(.fc-daygrid-day:not(.fc-day-other)) {
-      display: table-row;
-    }
-
-    /* Estilo base del número del día */
-    .fc-daygrid-day-number {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;       /* Ancho fijo */
-      height: 30px;     /* Alto fijo */
-      font-size: 15px;
-      font-weight: bold;
-      color: #00217cd4;
-      background-color: #fff;
-      border: 2px solid transparent !important;
-      border-radius: 10px;
-      margin:  auto;
-      transition: background-color 0.3s ease;
-      text-decoration: none !important;
-    }
-
-    /* Padding adicional */
-    .fc .fc-daygrid-day-number {
-      padding: 15px 15px;
-      position: relative;
-      z-index: 4;
-    }
-    .fc-daygrid-day-number,
-    .fc-col-header-cell-cushion {
-      text-decoration: none !important;
-    }
-
-    /* Hover en día disponible */
-    .fc-daygrid-day-number:hover {
-      background-color: #999694;
-      box-shadow: 0 0 5px rgba(142, 109, 173, 0.1);
-      cursor: pointer;
-    }
-
-    /* Día con reserva */
-    .fc-day-with-event .fc-daygrid-day-number {
-      background-color: #044191e6 !important;
-      color: #fff !important;
-      border-color: #fff !important;
-    }
-    .fc-day-feriado .fc-daygrid-day-number{
-    background-color: #09792e !important;
-    border-color: #ffffff !important;
-    color: #ffffff !important;
-    }
-
-
-    /* Día no disponible */
-    .fc-day-disabled .fc-daygrid-day-number {
-      background-color: #fff !important;
-      border: 2px solid #044191 !important;
-      color: #03091ad4 !important;
-      opacity: 0.5 !important;
-      pointer-events: none !important;
-    }
-    #turnos-del-dia p {
-      font-size: 14px;
-    }
-
-    #turnos-del-dia h6 {
-      font-size: 15px;
-    }
-    .custom-modal-width {
-      max-width: 60vw;
-      width: 100%;
-      margin: 20px auto;
-    }
-    .fc-day-other {
-      display: none !important;
-    }
-   
-    #recursos-container {
-      display: none;
-    }
-
+    body { font-family: 'Roboto','Open Sans', Arial, sans-serif; background-color: #ffffff; color: #1D2B4F; }
+    .logo-tigre { height: 60px; object-fit: contain; }
+    .logo-unemi { height: 50px; object-fit: contain; }
+    .franja-superior { background-color: #1D2B4F; color: white; font-size: 22px; font-weight: bold; }
+    .franja-naranja { height: 10px; background-color: #F39200; }
+    .card-img-top { height: 200px; object-fit: cover; }
+    .custom-modal-width { max-width: 60vw; width: 100%; margin: 20px auto; }
+    .text-naranja-oscuro { color: #d97706 !important; }
+    .titulo-espacio { color: #1D2B4F; }
+    .card-inactivo { background-color: #f8d7da; border-color: #dc3545; }
+    .card-mantenimiento { background-color: #e2e3e5; border-color: #6c757d; }
+    .texto-pequeno { font-size: 0.9rem; }
+    .texto-mediano { font-size: 1rem; }
+    .card-reservado { background-color: #e2e3e5; }
+    .btn-reservar:disabled { background-color: #dc3545; cursor: not-allowed; }
+    .fc .fc-toolbar-title { font-size: 1.25rem; }
+    .fc .fc-toolbar.fc-header-toolbar { margin-bottom: 0.85rem; }
+    .fc .fc-daygrid-day-events { display: none; }
+    .fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid, .fc-theme-standard .fc-scrollgrid-section, .fc-theme-standard .fc-scrollgrid-sync-table, .fc-theme-standard .fc-scrollgrid-sync-inner { border: none !important; box-shadow: none !important; }
+    .fc-daygrid-day { background-color: #f0f0f0 !important; }
+    .fc-daygrid-day-frame { height: 40px !important; display: flex; align-items: center; justify-content: center; border-radius: 10px; transition: all 0.2s ease-in-out; gap: 5px; }
+    .fc-daygrid-day-top { display: flex; justify-content: center; align-items: center; }
+    .fc-daygrid-body tr { display: none; }
+    .fc-daygrid-body tr:has(.fc-daygrid-day:not(.fc-day-other)) { display: table-row; }
+    .fc-daygrid-day-number { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; font-size: 15px; font-weight: bold; color: #00217cd4; background-color: #fff; border: 2px solid transparent !important; border-radius: 10px; margin: auto; transition: background-color 0.3s ease; text-decoration: none !important; }
+    .fc .fc-daygrid-day-number { padding: 15px 15px; position: relative; z-index: 4; }
+    .fc-daygrid-day-number, .fc-col-header-cell-cushion { text-decoration: none !important; }
+    .fc-daygrid-day-number:hover { background-color: #999694; box-shadow: 0 0 5px rgba(142,109,173,0.1); cursor: pointer; }
+    .fc-day-with-event .fc-daygrid-day-number { background-color: #044191e6 !important; color: #fff !important; border-color: #fff !important; }
+    .fc-day-feriado .fc-daygrid-day-number{ background-color: #09792e !important; border-color: #ffffff !important; color: #ffffff !important; }
+    .fc-day-disabled .fc-daygrid-day-number { background-color: #fff !important; border: 2px solid #044191 !important; color: #03091ad4 !important; opacity: 0.5 !important; pointer-events: none !important; }
+    #turnos-del-dia p { font-size: 14px; }
+    #turnos-del-dia h6 { font-size: 15px; }
+    .fc-day-other { display: none !important; }
+    #recursos-container { display: none; }
   </style>
 </head>
 <body>
@@ -249,87 +77,73 @@
 </div>
 <div class="franja-naranja"></div>
 
-
 <!-- Contenido -->
 <div class="container mt-5">
-    <div id="espacios-container" class="row align-items-start">
-      <div id="loading" class="text-center">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
-        </div>
-        <p class="mt-2">Cargando Espacios y sus reservas...</p>
+  <div id="espacios-container" class="row align-items-start">
+    <div id="loading" class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
       </div>
+      <p class="mt-2">Cargando Espacios y sus reservas...</p>
     </div>
   </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg custom-modal-width">
     <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-center" id="modalReservaLabel">Reserva de Espacios</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="modalReservaLabel">Reserva de Espacios</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="calendar-modal" style="margin-bottom: 20px;border: 1px solid #0c0c0c;border-radius: 8px;padding: 15px;background-color: #f0f0f0;font-size: 13px;text-transform: capitalize;box-shadow: 0 5px 5px rgba(0,0,0,0.05);min-height: 200px;"></div>
+          </div>
+          <div class="col-md-6" style="overflow: auto; max-height: 300px;">
+            <div id="turnos-del-dia" class="border rounded p-3" style="min-height: 300px;  background-color: #f0f0f0;"></div>
+          </div>
         </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div id="calendar-modal" style="margin-bottom: 20px;
-                                               border: 1px solid #0c0c0c;
-                                               border-radius: 8px;
-                                               padding: 15px;
-                                               background-color: #f0f0f0;
-                                               font-size: 13px;
-                                               text-transform: capitalize;
-                                               box-shadow: 0 5px 5px rgba(0,0,0,0.05);
-                                               min-height: 200px;"></div>
-            </div>
 
-            <!-- Panel de reservas para el día seleccionado -->
-            <div class="col-md-6" style="overflow: auto; max-height: 300px;">
-              <div id="turnos-del-dia" class="border rounded p-3" style="min-height: 300px;  background-color: #f0f0f0;">
-
-              </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-12 gap-2">
+            <div class="p-2 rounded d-flex align-items-center justify-content-center align-items-center gap-1" style="background-color: #f0f0f0;">
+              <div class="color-estado rounded" style="background-color: #fff; border:1px solid #044191 ; width: 14px; height: 14px;"></div>
+              <small class="estado_reserva sin_horario"style="padding-right: 30px">No Disponible</small>
+              <div class="estado_reserva color-estado rounded" style="background-color: #fff; width: 14px; height: 14px;"></div>
+              <small class="disponible"style="padding-right: 30px">Disponible</small>
+              <div class="estado_reserva color-estado rounded" style="background-color: #044191e6; width: 14px; height: 14px;"></div>
+              <small class="tiene_reserva" style="padding-right: 30px">Tiene Reservas</small>
+              <div class="estado_reserva color-estado rounded" style="background-color: #09792e; width: 14px; height: 14px;"></div>
+              <small class="tiene_reserva" style="padding-right: 30px">Feriado</small>
             </div>
           </div>
+        </div>
 
-           <div class="row" style="margin-top: 10px;">
-            <div class="col-md-12 gap-2">
-              <div class="p-2 rounded d-flex align-items-center justify-content-center align-items-center gap-1" style="background-color: #f0f0f0;">
-                <div class="color-estado rounded" style="background-color: #fff; border:1px solid #044191 ; width: 14px; height: 14px;"></div>
-                  <small class="estado_reserva sin_horario"style="padding-right: 30px">No Disponible</small>
-                <div class="estado_reserva color-estado rounded" style="background-color: #fff; width: 14px; height: 14px;"></div>
-                  <small class="disponible"style="padding-right: 30px">Disponible</small>
-                <div class="estado_reserva color-estado rounded" style="background-color: #044191e6; width: 14px; height: 14px;"></div>
-                  <small class="tiene_reserva" style="padding-right: 30px">Tiene Reservas</small>
-                <div class="estado_reserva color-estado rounded" style="background-color: #09792e; width: 14px; height: 14px;"></div>
-                  <small class="tiene_reserva" style="padding-right: 30px">Feriado</small>
-              </div>
-            </div>  
-          </div>
-
-           <hr>
-          <form id="formulario-espacio"  >
+        <hr>
+        <form id="formulario-espacio">
           <div class="row mb-3">
-              <div class="col-md-12">
-                <label for="nombre_evento" class="form-label">Nombre del Evento:</label>
-                <input type="text" class="form-control" id="nombre_evento" required>
-              </div> 
-
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label for="categoria" class="form-label">Seleccionar categoría:</label>
-                    <select class="form-select" id="categoria" name="categoria" required>
-                      <option value="">Seleccione una categoría</option>
-                    </select> 
-                </div>
-                <div class="col-md-6">
-                  <label for="tipo" class="form-label">Seleccionar Tipo:</label>
-                    <select class="form-select" id="tipo" name="tipo" required>
-                      <option value="">Seleccione un Tipo</option>
-                    </select>
-                </div>
+            <div class="col-md-12">
+              <label for="nombre_evento" class="form-label">Nombre del Evento:</label>
+              <input type="text" class="form-control" id="nombre_evento" required>
             </div>
-                 
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="categoria" class="form-label">Seleccionar categoría:</label>
+                <select class="form-select" id="categoria" name="categoria" required>
+                  <option value="">Seleccione una categoría</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="tipo" class="form-label">Seleccionar Tipo:</label>
+                <select class="form-select" id="tipo" name="tipo" required>
+                  <option value="">Seleccione un Tipo</option>
+                </select>
+              </div>
+            </div>
+
             <div class="row mb-3">
               <div class="col-md-6">
                 <div class="row">
@@ -339,7 +153,7 @@
                       <option value="">Seleccione un alcance</option>
                       <option value="Nacional">Nacional</option>
                       <option value="Internacional">Internacional</option>
-                    </select>                    
+                    </select>
                   </div>
                 </div>
               </div>
@@ -356,6 +170,7 @@
                 </div>
               </div>
             </div>
+
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="actividad" class="form-label">Actividad a realizar:</label>
@@ -374,111 +189,131 @@
                 </div>
               </div>
             </div>
+
             <div class="row mb-3">
-                <div class="col-md-6">
-                  <label for="solicitante" class="form-label">Solicitante:</label>
-                  <input type="text" class="form-control" id="solicitante" required>
-                </div>
-                <div class="col-md-6">
-                  <label for="correo" class="form-label">Correo institucional:</label>
-                  <input type="email" class="form-control" id="correo" required>
-                </div>
+              <div class="col-md-6">
+                <label for="solicitante" class="form-label">Solicitante:</label>
+                <input type="text" class="form-control" id="solicitante" required>
+              </div>
+              <div class="col-md-6">
+                <label for="correo" class="form-label">Correo institucional:</label>
+                <input type="email" class="form-control" id="correo" required>
+              </div>
             </div>
+
             <div class="row mb-3">
-                <div class="col-md-6">
-                  <label for="unidad" class="form-label">Unidad académica o administrativa:</label>
-                  <select class="form-select" id="unidad" required  style="width: 100%;">
-                    <option value="">Seleccione una Unidad</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label for="responsable_reserva" class="form-label">Responsable reserva:</label>
-                  <input type="text" class="form-control" id="responsable_reserva" required>
-                </div>
+              <div class="col-md-6">
+                <label for="unidad" class="form-label">Unidad académica o administrativa:</label>
+                <select class="form-select" id="unidad" required style="width: 100%;">
+                  <option value="">Seleccione una Unidad</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="responsable_reserva" class="form-label">Responsable reserva:</label>
+                <input type="text" class="form-control" id="responsable_reserva" required>
+              </div>
             </div>
+
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="participantes" class="form-label">Número de participantes:</label>
                 <input type="number" class="form-control" id="participantes" required max="">
               </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="celular" class="form-label">Celular:</label>
-                    <input type="tel" class="form-control" id="celular"
-                      name="celular"
-                      pattern="^[0-9]{10}$"
-                      maxlength="10"
-                      inputmode="numeric"
-                      placeholder="Ej: 0987654321"
-                      oninvalid="this.setCustomValidity('Debe ingresar exactamente 10 números.')"
-                      oninput="this.setCustomValidity('')"
-                      required>
-                  </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="celular" class="form-label">Celular:</label>
+                  <input type="tel" class="form-control" id="celular"
+                         name="celular"
+                         pattern="^[0-9]{10}$"
+                         maxlength="10"
+                         inputmode="numeric"
+                         placeholder="Ej: 0987654321"
+                         oninvalid="this.setCustomValidity('Debe ingresar exactamente 10 números.')"
+                         oninput="this.setCustomValidity('')"
+                         required>
                 </div>
+              </div>
             </div>
+
             <div class="row mb-3">
               <div class="col-md-12">
                 <label for="archivo" class="form-label">Adjuntar archivo:</label>
-                  <input type="file" class="form-control" id="archivo" name="archivo" accept=".xlsx,.xls,.docx">
-                  <div class="form-text">El documento debe contener los datos complementarios de la reserva.</div>
+                <input type="file" class="form-control" id="archivo" name="archivo" accept=".xlsx,.xls,.docx">
+                <div class="form-text">El documento debe contener los datos complementarios de la reserva.</div>
               </div>
             </div>
-  <div class="row mb-3" id="recursos-container">
-  <div class="col-md-12">
-    <label for="recursos" class="form-label">Link de recursos:</label>
-    <input type="url" class="form-control" id="recursos">
-  </div>
-</div>
-          <input type="hidden" id="espacioSeleccionado" name="espacio">
-           <!-- CAMBIO 1: Añadir campo oculto para el email del responsable -->
-          <input type="hidden" id="emailResponsable" name="email_responsable">
-          <!-- CAMBIO 2: Añadir campo oculto para el nombre del espacio -->
-          <input type="hidden" id="nombre" name="nombre">
-          <!-- CAMBIO 3: Añadir campo oculto para la dirección responsable -->
-          <input type="hidden" id="direccionResponsable" name="direccion_responsable">
 
-        <!-- ========================================================== -->
-    <!--          NUEVO BLOQUE DE TÉRMINOS Y CONDICIONES          -->
-    <!-- ========================================================== -->
-    <div class="row mb-3">
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="terminos" required/>
-            <label class="form-check-label texto-mediano" for="terminos">
-        Acepto los 
-        <a href="https://docs.google.com/document/d/1PNRoHcDD0k8BwewJDjTy6VdTOtCmurF_/edit?usp=drive_link&ouid=110049633757378533995&rtpof=true&sd=true"
-           target="_blank" rel="noopener noreferrer">
-          Términos y Condiciones
-        </a>
-        y el 
-        <a href="https://drive.google.com/file/d/1nQ1PjQqttC3Ho_ONk7p7AFIMt6Ok3NWL/view?usp=drive_link"
-           target="_blank" rel="noopener noreferrer">
-          Protocolo para el Desarrollo de Eventos
-        </a>.
-      </label>
-       <div class="form-text">
-        Debe aceptar esta casilla para poder enviar la solicitud.
-        </div>
-      </div>
-    </div>
-    <!-- ========================================================== -->
-    
-          <input type="hidden" id="estado_solicitud" name="estado_solicitud" value="PENDIENTE">
-          <div class="modal-footer">
-            <button id="btn-enviar" type="submit" class="btn btn-primary">Enviar Solicitud</button>
-          </div>
+            <div class="row mb-3" id="recursos-container">
+              <div class="col-md-12">
+                <label for="recursos" class="form-label">Link de recursos:</label>
+                <input type="url" class="form-control" id="recursos">
+              </div>
+            </div>
+
+            <input type="hidden" id="espacioSeleccionado" name="espacio">
+            <input type="hidden" id="emailResponsable" name="email_responsable">
+            <input type="hidden" id="nombre" name="nombre">
+            <input type="hidden" id="direccionResponsable" name="direccion_responsable">
+
+            <!-- Términos -->
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="terminos" required/>
+                  <label class="form-check-label texto-mediano" for="terminos">
+                    Acepto los
+                    <a href="https://docs.google.com/document/d/1PNRoHcDD0k8BwewJDjTy6VdTOtCmurF_/edit?usp=drive_link&ouid=110049633757378533995&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+                    y el
+                    <a href="https://drive.google.com/file/d/1nQ1PjQqttC3Ho_ONk7p7AFIMt6Ok3NWL/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Protocolo para el Desarrollo de Eventos</a>.
+                  </label>
+                  <div class="form-text">Debe aceptar esta casilla para poder enviar la solicitud.</div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="estado_solicitud" name="estado_solicitud" value="PENDIENTE">
+            <div class="modal-footer">
+              <button id="btn-enviar" type="submit" class="btn btn-primary">Enviar Solicitud</button>
+            </div>
         </form>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 const webAppUrl = "https://script.google.com/macros/s/AKfycbzvwipdMjsscWr8XePn2txkh6HQgma0vF75lKdUYaF_CxV1aRtiqZqez2XhNlx1L4hF/exec";
 let reservasPorEspacio = {};
 let calendar;
 let espacioSeleccionadoId = null;
+
+// === EXCEPCIÓN RECTORADO ===
+const isRectorado = () =>
+  (($('#unidad option:selected').text() || '').trim().toUpperCase() === 'RECTORADO');
+
+// Aplica/retira reglas de auditorios (tope 17:00) según unidad
+function aplicarReglasAuditorio(esAuditorio) {
+  const recursosContainer = document.getElementById("recursos-container");
+  const recursosInput = document.getElementById("recursos");
+  const horaFinInput = document.getElementById("hora_fin");
+
+  // Recursos siguen siendo requeridos en auditorios
+  if (esAuditorio) {
+    recursosContainer.style.display = "block";
+    recursosInput.setAttribute("required", "required");
+  } else {
+    recursosContainer.style.display = "none";
+    recursosInput.removeAttribute("required");
+  }
+
+  // Tope 17:00 solo si NO es Rectorado
+  if (esAuditorio && !isRectorado()) {
+    horaFinInput.value = "17:00";
+    horaFinInput.setAttribute("max", "17:00");
+  } else {
+    horaFinInput.removeAttribute("max");
+  }
+}
 
 // --- Cargar espacios ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -503,14 +338,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let badgeText = "Activo";
         let buttonDisabled = "";
         let observacionHtml = "";
-        /*let bienesHtml = "No disponible";
-        if (espacio.bienes && typeof espacio.bienes === "string") {
-          // Quita espacios y separa por "•"
-          const bienesArr = espacio.bienes.split("•").map(b => b.trim()).filter(b => b);
-          if (bienesArr.length) {
-            bienesHtml = `<ul style="padding-left: 18px; margin-bottom: 0;">${bienesArr.map(b => `<li>${b}</li>`).join("")}</ul>`;
-          }
-        }*/
 
         if (estado === "inactivo") {
           cardExtraClass = "card-inactivo";
@@ -525,6 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
           buttonDisabled = "disabled";
           observacionHtml = `<p class="card-text text-secondary small"><strong>Observación:</strong> ${espacio.observacion}</p>`;
         }
+
         const card = document.createElement("div");
         card.className = "col-md-4 mb-4";
         card.innerHTML = `
@@ -608,15 +436,16 @@ const unidades = [
   {"codigo": 39, "text": "Facultad de Ciencias e Ingenierías"},
   {"codigo": 40, "text": "Facultad de Ciencias Sociales, Educación Comercial y Derecho"},
   {"codigo": 41, "text": "Facultad de Salud y Servicios Sociales"},
-  {"codigo": 42, "text": "Facultad de Educación"}
- 
+  {"codigo": 42, "text": "Facultad de Educación"},
+  {"codigo": 43,"text":"Rectorado"},
+  {"codigo": 44,"text":"Vicerrectorado de Vinculación"},
+  {"codigo": 45,"text":"Vicerrectorado de Investigación y de Posgrado"},
+  {"codigo": 46,"text":"Vicerrectorado Académico de Formación de Grado"}
 ];
 
 function cargarUnidades() {
   const select = document.getElementById('unidad');
   select.innerHTML = '<option value="">Seleccione una Unidad</option>';
-
-  // Agregar opciones
   unidades.forEach(u => {
     const option = document.createElement('option');
     option.value = u.codigo;
@@ -624,194 +453,105 @@ function cargarUnidades() {
     select.appendChild(option);
   });
 
-  // Destruir Select2 previo
   if ($(select).hasClass('select2-hidden-accessible')) {
     $(select).select2('destroy');
   }
 
-  // Inicializar Select2
   $('#unidad').select2({
     placeholder: "Selecione una Unidad",
     allowClear: true,
     width: '100%',
-    dropdownParent: $('#formulario-espacio'), // esto es clave dentro del modal
-    minimumInputLength: 1, // para activar búsqueda
+    dropdownParent: $('#formulario-espacio'),
+    minimumInputLength: 1,
     theme: "bootstrap-5",
   });
 }
 
 // --- Categorías ---
-
 const categoriasPorEspacio = [ 
-  {
-    "espacio": "Auditorio W", 
-    "categorias": [
-      {
-        "codigo": 1,
-        "text": "Eventos Solemnes",
-        "tipo": [
-          "Sesión Solemne de Aniversario Institucional", 
-          "Audiencia Pública de Rendición de Cuentas, dispuesta por el Consejo de Participación Ciudadana y Control Social.", 
-          "Aniversario de fundación de las facultades.",
-          "Ceremonias de graduación de grado y posgrado.",
-          "Ceremonia Honoris Causa",
-        ]
-      },
-      {
-        "codigo": 2,
-        "text": "Eventos Institucionales",
-        "tipo": [
-          "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
-          "Socialización de planes de las unidades organizacionales.",
-          "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
-          "Entrega de Reconocimiento por rendimiento académico."
-        ]
-      },
-      {
-        "codigo": 3,
-        "text": "Eventos Interinstitucionales",
-        "tipo": ["Firma de convenios interinstitucionales y/o de cooperación interinstitucional"]
-      },
-      {
-      "codigo": 4,
-        "text": "Eventos culturales",
-        "tipo": ["Festival Internacional de Teatro Uniendo Pueblos FITUP"]
-      }  
-    ]
-  },
-
-  {
-    "espacio": "Plaza de Integración", 
-    "categorias": [
-      {
-        "codigo": 2,
-        "text": "Eventos Institucionales",
-        "tipo": [
-          "Ceremonia de bienvenida al inicio de periodo académico.",
-          "Casas abiertas de las facultades."
-        ]
-      },
-      {
-        "codigo": 4,
-        "text": "Eventos culturales",
-        "tipo": [
-          "Ferias emprendedoras",
-          "Festival Internacional de Teatro Uniendo Pueblos FITUP",
-          "Novatada Cultural Institucional"
-         ]
-      },
-      ]
-  },
-
-  {
-    "espacio": "Auditorio A", 
-    "categorias": [
-      {
-        "codigo": 2,
-        "text": "Eventos Institucionales",
-        "tipo": [
-          "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
-          "Socialización de planes de las unidades organizacionales.",
-          "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
-          "Entrega de Reconocimiento por rendimiento académico."
-        ]
-      },
-       {
-      "codigo": 4,
-        "text": "Eventos culturales",
-        "tipo": ["Festival Internacional de Teatro Uniendo Pueblos FITUP"]
-      }  
-    ]
-  },
-
-  {
-    "espacio": "Auditorio V", 
-    "categorias": [
-      {
-        "codigo": 2,
-        "text": "Eventos Institucionales",
-        "tipo": [
-          "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
-          "Socialización de planes de las unidades organizacionales.",
-          "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
-          "Entrega de Reconocimiento por rendimiento académico."
-        ]
-      },
-    ]
-  },
-
-  {
-    "espacio": "Ágora del Corredor Cultural", 
-    "categorias": [
-      {
-        "codigo": 2,
-        "text": "Eventos Institucionales",
-        "tipo": [ "Casas abiertas de las facultades." ] 
-      },
-
-      {
-        "codigo": 4,
-        "text": "Eventos culturales",
-        "tipo": [
-          "Ferias emprendedoras",
-          "Festival Internacional de Teatro Uniendo Pueblos FITUP",
-          "Novatada Cultural Institucional"
-         ]
-      }
-    ]
-
-  },
-  
-    {
-    "espacio": "Plazoleta", 
-    "categorias": [
-
-      {
-        "codigo": 2,
-        "text": "Eventos Institucionales",
-        "tipo": [
-          "Casas abiertas de las facultades.",
-          "Ceremonia de bienvenida al inicio de periodo académico."
-        ]
-      },
-      {
-         "codigo": 4,
-        "text": "Eventos culturales",
-        "tipo": [
-          
-          "Festival Internacional de Teatro Uniendo Pueblos FITUP"
-         
-         ]
-      }
-    ]
-
-  }
-]
-
+  {"espacio":"Auditorio W","categorias":[
+    {"codigo":1,"text":"Eventos Solemnes","tipo":[
+      "Sesión Solemne de Aniversario Institucional",
+      "Audiencia Pública de Rendición de Cuentas, dispuesta por el Consejo de Participación Ciudadana y Control Social.",
+      "Aniversario de fundación de las facultades.",
+      "Ceremonias de graduación de grado y posgrado.",
+      "Ceremonia Honoris Causa"
+    ]},
+    {"codigo":2,"text":"Eventos Institucionales","tipo":[
+      "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
+      "Socialización de planes de las unidades organizacionales.",
+      "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
+      "Entrega de Reconocimiento por rendimiento académico."
+    ]},
+    {"codigo":3,"text":"Eventos Interinstitucionales","tipo":[
+      "Firma de convenios interinstitucionales y/o de cooperación interinstitucional"
+    ]},
+    {"codigo":4,"text":"Eventos culturales","tipo":[
+      "Festival Internacional de Teatro Uniendo Pueblos FITUP"
+    ]}
+  ]},
+  {"espacio":"Plaza de Integración","categorias":[
+    {"codigo":2,"text":"Eventos Institucionales","tipo":[
+      "Ceremonia de bienvenida al inicio de periodo académico.",
+      "Casas abiertas de las facultades."
+    ]},
+    {"codigo":4,"text":"Eventos culturales","tipo":[
+      "Ferias emprendedoras",
+      "Festival Internacional de Teatro Uniendo Pueblos FITUP",
+      "Novatada Cultural Institucional"
+    ]}
+  ]},
+  {"espacio":"Auditorio A","categorias":[
+    {"codigo":2,"text":"Eventos Institucionales","tipo":[
+      "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
+      "Socialización de planes de las unidades organizacionales.",
+      "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
+      "Entrega de Reconocimiento por rendimiento académico."
+    ]},
+    {"codigo":4,"text":"Eventos culturales","tipo":[
+      "Festival Internacional de Teatro Uniendo Pueblos FITUP"
+    ]}
+  ]},
+  {"espacio":"Auditorio V","categorias":[
+    {"codigo":2,"text":"Eventos Institucionales","tipo":[
+      "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
+      "Socialización de planes de las unidades organizacionales.",
+      "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
+      "Entrega de Reconocimiento por rendimiento académico."
+    ]}
+  ]},
+  {"espacio":"Ágora del Corredor Cultural","categorias":[
+    {"codigo":2,"text":"Eventos Institucionales","tipo":[ "Casas abiertas de las facultades." ]},
+    {"codigo":4,"text":"Eventos culturales","tipo":[
+      "Ferias emprendedoras",
+      "Festival Internacional de Teatro Uniendo Pueblos FITUP",
+      "Novatada Cultural Institucional"
+    ]}
+  ]},
+  {"espacio":"Plazoleta","categorias":[
+    {"codigo":2,"text":"Eventos Institucionales","tipo":[
+      "Casas abiertas de las facultades.",
+      "Ceremonia de bienvenida al inicio de periodo académico."
+    ]},
+    {"codigo":4,"text":"Eventos culturales","tipo":[
+      "Festival Internacional de Teatro Uniendo Pueblos FITUP"
+    ]}
+  ]}
+];
 
 function limpiarCombo(select, description) {
   select.innerHTML = `<option value="">Seleccione ${description}</option>`;
 }
 const cmbCategoria = document.getElementById("categoria");
-
 cmbCategoria.addEventListener("change", function(){
   cargarTipo(this.value, document.getElementById("nombre").value);
 });
-
 function cargarCategorias(espacioSeleccionado) {
   limpiarCombo(cmbCategoria, "una Categoria");
   espacioSeleccionado = espacioSeleccionado.trim();
   if (categoriasPorEspacio.length < 1) return;
-
-  // Filtrar el espacio actual
-  const espacio = categoriasPorEspacio.find((e) => {
-    console.log(e.espacio);
-     
-
-    return e.espacio == espacioSeleccionado});
-  if (!espacio) return; // si no existe, salir
-
-  // Recorrer solo las categorías de ese espacio
+  const espacio = categoriasPorEspacio.find((e) => e.espacio == espacioSeleccionado);
+  if (!espacio) return;
   espacio.categorias.forEach((item) => {
     const option = document.createElement("option");
     option.value = item.codigo;
@@ -819,23 +559,15 @@ function cargarCategorias(espacioSeleccionado) {
     cmbCategoria.append(option);
   });
 }
-
-
 function cargarTipo(categoriaId, nombreEspacio) {
   if (!categoriaId || !nombreEspacio) return;
-
-  // Buscar el espacio seleccionado
   const espacio = categoriasPorEspacio.find(e => e.espacio === nombreEspacio.trim());
   if (!espacio) return;
-
-  // Buscar la categoría dentro del espacio
   const categoria = espacio.categorias.find(c => c.codigo == categoriaId);
   if (!categoria) return;
-
   const select = document.getElementById("tipo");
   limpiarCombo(select, "un Tipo");
-
-  if(categoria.tipo.length < 1) return
+  if(categoria.tipo.length < 1) return;
   categoria.tipo.forEach(item => {
     let option = document.createElement("option");
     option.value = item;
@@ -844,30 +576,26 @@ function cargarTipo(categoriaId, nombreEspacio) {
   });
 }
 
-
 // --- Validaciones ---
 document.getElementById('participantes').addEventListener('blur', () => {
   const input = document.getElementById('participantes');
   const max = parseInt(input.getAttribute('max')), valor = parseInt(input.value);
   if (max && valor > max) {
-  Swal.fire({ 
-    icon:'error', 
-    title:'Capacidad máxima excedida', 
-    text:`La capacidad máxima es ${max}` });
-  input.value = '';
+    Swal.fire({ icon:'error', title:'Capacidad máxima excedida', text:`La capacidad máxima es ${max}` });
+    input.value = '';
   }
 });
 
 function validarReserva() {
+  // Excepción: Rectorado ignora la regla de 24 horas
+  if (isRectorado()) return;
   const fecha = document.getElementById('fecha_inicio').value;
   const hora = document.getElementById('hora_inicio').value;
   const now = new Date();
   const inicio = new Date(`${fecha}T${hora}`);
   if ((inicio-now)/(1000*60*60)<24) Swal.fire({icon:'warning', title:'Tiempo insuficiente', text:'Debe reservar con al menos 24 horas de anticipación.'});
-  
 }
 ['fecha_inicio','hora_inicio','fecha_fin','hora_fin'].forEach(id => document.getElementById(id).addEventListener('change', validarReserva));
-
 
 // ...existing code...
 function validarMismoHorario() {
@@ -891,14 +619,11 @@ function validarMismoHorario() {
     const rFechaFin = (r.fin_reserva || '').substring(0, 10);
     const rHoraFin = (r.hora_fin || '').trim();
 
-
     if (!rFechaInicio || !rHoraInicio || !rFechaFin || !rHoraFin) return;
 
-    // Construir fechas válidas para comparación
     const inicio = new Date(`${rFechaInicio}T${rHoraInicio}:00`).getTime();
     const fin = new Date(`${rFechaFin}T${rHoraFin}:00`).getTime();
     const finMasUnaHora = fin + 60 * 60 * 1000;
-
 
     if (nuevaInicio < fin && nuevaFin > inicio) {
       conflictoSolapamiento = true;
@@ -907,57 +632,39 @@ function validarMismoHorario() {
       conflictoHoraExtra = true;
     }
     if (conflictoSolapamiento) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Conflicto de horario',
-        text: 'Ya existe una reserva en el horario seleccionado. Por favor, elija otro horario disponible.'
-      });
+      Swal.fire({ icon: 'warning', title: 'Conflicto de horario', text: 'Ya existe una reserva en el horario seleccionado. Por favor, elija otro horario disponible.' });
       document.getElementById('hora_inicio').value = '';
       document.getElementById('hora_fin').value = '';
       return false;
     }
 
     if (conflictoHoraExtra) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Conflicto de horario',
-        text: 'Debe esperar al menos una hora desde la última reserva antes de realizar una nueva.'
-      });
+      Swal.fire({ icon: 'warning', title: 'Conflicto de horario', text: 'Debe esperar al menos una hora desde la última reserva antes de realizar una nueva.' });
       document.getElementById('hora_inicio').value = '';
       document.getElementById('hora_fin').value = '';
       return false;
     }
-
-  })
-  if(conflictoSolapamiento || conflictoHoraExtra) return false
-  return true
+  });
+  if(conflictoSolapamiento || conflictoHoraExtra) return false;
+  return true;
 }
 
-
 // --- validar horas ---
-
 function validarHoras() {
   const fechaInicio = document.getElementById('fecha_inicio').value.trim();
   const horaInicio = document.getElementById('hora_inicio').value.trim();
   const fechaFin = document.getElementById('fecha_fin').value.trim();
   const horaFin = document.getElementById('hora_fin').value.trim();
-
-  // Si algún campo está vacío, no validar aún
   if (!fechaInicio || !horaInicio || !fechaFin || !horaFin) return true;
 
   const inicio = new Date(`${fechaInicio}T${horaInicio}:00`);
   const fin = new Date(`${fechaFin}T${horaFin}:00`);
 
   if (fin < inicio) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error en las fechas',
-      text: 'La hora de fin no puede ser menor a la hora de inicio.'
-    });
+    Swal.fire({ icon: 'error', title: 'Error en las fechas', text: 'La hora de fin no puede ser menor a la hora de inicio.' });
     document.getElementById('hora_fin').value = '';
     return false;
   }
-
   return true; 
 }
 document.getElementById('fecha_inicio').addEventListener('change', validarHoras); 
@@ -966,10 +673,10 @@ document.getElementById('fecha_fin').addEventListener('change', validarHoras);
 document.getElementById('hora_fin').addEventListener('change', validarHoras);
 
 let feriadosTotales = []; 
-// --- Inicializar feriados ---
 async function inicializarFeriados() {
   feriadosTotales = await obtenerFeriadosEcuador(); 
 }
+
 // --- Manejo modal ---
 document.addEventListener('click', e => {
   if (!e.target.classList.contains('btn-reservar')) return;
@@ -985,35 +692,13 @@ document.addEventListener('click', e => {
   document.getElementById("direccionResponsable").value = direccionResponsable || "";
   document.getElementById("nombre").value = nombreEspacio || "";
 
-   // Normaliza el nombre del espacio (quita tildes, mayúsculas y espacios extra)
-const normalizar = s => (s || "")
-  .normalize("NFD").replace(/\p{Diacritic}/gu, "")
-  .trim().toUpperCase();
+  const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
+  const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(nombreEspacio));
 
-const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"]
-  .includes(normalizar(nombreEspacio));
-
-// 👇 Mostrar/ocultar y required dinámico
-const recursosContainer = document.getElementById("recursos-container");
-const recursosInput = document.getElementById("recursos");
-
-if (esAuditorio) {
-  recursosContainer.style.display = "block";
-  recursosInput.setAttribute("required", "required");
-} else {
-  recursosContainer.style.display = "none";
-  recursosInput.removeAttribute("required");
-}
-
-// Tope de hora fin solo en auditorios
-const horaFinInput = document.getElementById("hora_fin");
-if (esAuditorio) {
-  horaFinInput.value = "17:00";
-  horaFinInput.setAttribute("max", "17:00");
-} else {
-  horaFinInput.removeAttribute("max");
-  if (horaFinInput.value === "17:00") horaFinInput.value = "";
-}
+  // Reglas de auditorios (tope 17:00 condicional a Rectorado)
+  aplicarReglasAuditorio(esAuditorio);
+  // Reaplicar si cambian la unidad dentro del modal
+  $('#unidad').off('change._rectorado').on('change._rectorado', () => aplicarReglasAuditorio(esAuditorio));
 
   const capacidadText = btn.closest('.card').querySelector('.card-text:nth-of-type(2)').textContent;
   const max = parseInt(capacidadText.replace(/\D/g,''));  
@@ -1024,43 +709,30 @@ if (esAuditorio) {
   cargarCategorias(nombreEspacio);
   cargarUnidades();
 
-  //  Validación: no permitir reservas sábado (6) ni domingo (0)
-const ahora = new Date();
-const diaSemana = ahora.getDay(); // 0=domingo, 6=sábado
-const hoyFormateado = ahora.toISOString().split('T')[0]; // yyyy-mm-dd
+  // Validación feriado / fin de semana (NO aplica para Rectorado)
+  const ahora = new Date();
+  const diaSemana = ahora.getDay(); // 0=domingo, 6=sábado
+  const hoyFormateado = ahora.toISOString().split('T')[0];
 
-const esFeriado = feriadosTotales.some(f => f.inicio_reserva === hoyFormateado);
-
-if (esFeriado) {
-  return Swal.fire({
-    icon: 'warning',
-    title: 'Reserva no permitida',
-    text: 'No se pueden realizar reservas en feriados.'
-  });
-}
-
-if (diaSemana === 0 || diaSemana === 6) {
-  return Swal.fire({
-    icon: 'warning',
-    title: 'Reserva no permitida',
-    text: 'Solo se permiten reservas de lunes a viernes.'
-  });
-}
-
-// Nota: NO bloqueamos por hora actual (>=17) de forma global.
-// El tope de 17:00 ya se maneja sólo para auditorios (ver #1 y #3).
+  if (!isRectorado()) {
+    const esFeriado = feriadosTotales.some(f => f.inicio_reserva === hoyFormateado);
+    if (esFeriado) {
+      return Swal.fire({ icon: 'warning', title: 'Reserva no permitida', text: 'No se pueden realizar reservas en feriados.' });
+    }
+    if (diaSemana === 0 || diaSemana === 6) {
+      return Swal.fire({ icon: 'warning', title: 'Reserva no permitida', text: 'Solo se permiten reservas de lunes a viernes.' });
+    }
+  }
 
   const modal = new bootstrap.Modal(document.getElementById('modalReserva'));
   modal.show();
   const container = document.getElementById('turnos-del-dia');
   container.innerHTML = '<h6 class="text-muted">Seleccione un día en el calendario para ver las reservas actuales.</h6>';
-
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  inicializarFeriados(); // carga los feriados antes de usar los botones
+  inicializarFeriados();
 });
-
 
 document.getElementById('modalReserva').addEventListener('shown.bs.modal', async () => {
   if (!espacioSeleccionadoId) return;
@@ -1069,76 +741,52 @@ document.getElementById('modalReserva').addEventListener('shown.bs.modal', async
 
 document.getElementById('modalReserva').addEventListener('hidden.bs.modal', () => {
   const form = document.getElementById('formulario-espacio');
-  form.reset(); // limpia los valores
-  // habilitar todos los inputs y selects
+  form.reset();
   form.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
-  // habilitar el botón enviar
   document.getElementById('btn-enviar').removeAttribute('disabled');
-  // 👇 limpiar estado del campo recursos siempre
   document.getElementById("recursos-container").style.display = "none";
   document.getElementById("recursos").removeAttribute("required");
 });
 
-
-  // --- Formulario ---
-  document.getElementById('formulario-espacio').addEventListener('submit', async e => {
+// --- Submit ---
+document.getElementById('formulario-espacio').addEventListener('submit', async e => {
   e.preventDefault();
 
+  const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
+  const espacioNombre = document.getElementById("nombre").value;
+  const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(espacioNombre));
 
-  // Normalizar nombre (mayúsculas, sin tildes, sin espacios extra)
-const normalizar = s => (s || "")
-  .normalize("NFD").replace(/\p{Diacritic}/gu, "")
-  .trim().toUpperCase();
+  // Validación 17:00 solo si NO es Rectorado
+  if (esAuditorio && !isRectorado()) {
+    const horaFin = document.getElementById("hora_fin").value;
+    if (horaFin !== "17:00") {
+      Swal.fire({ icon: 'error', title: 'Hora inválida', text: 'En este espacio, la hora de fin debe ser exactamente 17:00.' });
+      return;
+    }
+  }
 
-const espacioNombre = document.getElementById("nombre").value;
-const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"]
-  .includes(normalizar(espacioNombre));
+  // Link de recursos (se mantiene como obligatorio en auditorios)
+  if (esAuditorio) {
+    const recursos = document.getElementById("recursos").value.trim();
+    if (!recursos) {
+      Swal.fire({ icon: 'warning', title: 'Campo requerido', text: 'Debe ingresar un link de recursos en este espacio.' });
+      return;
+    }
+  }
 
-if (esAuditorio) {
-  // Validar hora fin
-  const horaFin = document.getElementById("hora_fin").value;
-  if (horaFin !== "17:00") {
-    Swal.fire({
-      icon: 'error',
-      title: 'Hora inválida',
-      text: 'En este espacio, la hora de fin debe ser exactamente 17:00.'
-    });
+  const chkTerminos = document.getElementById('terminos');
+  if (!chkTerminos || !chkTerminos.checked) {
+    Swal.fire({ icon: 'warning', title: 'Debe aceptar los Términos y Condiciones', text: 'Marque la casilla "Acepto los Términos y Condiciones" para continuar.' });
     return;
   }
 
-  // Validar link de recursos
-  const recursos = document.getElementById("recursos").value.trim();
-  if (!recursos) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Campo requerido',
-      text: 'Debe ingresar un link de recursos en este espacio.'
-    });
-    return;
-  }
-}
-
-const chkTerminos = document.getElementById('terminos');
-if (!chkTerminos || !chkTerminos.checked) {
-  Swal.fire({
-    icon: 'warning',
-    title: 'Debe aceptar los Términos y Condiciones',
-    text: 'Marque la casilla "Acepto los Términos y Condiciones" para continuar.'
-  });
-  return;
-}
-
-   espacioSeleccionadoId = document.getElementById('espacioSeleccionado').value;
-  horarioValidado = validarMismoHorario()
+  espacioSeleccionadoId = document.getElementById('espacioSeleccionado').value;
+  horarioValidado = validarMismoHorario();
   if (!horarioValidado) return;
 
   const archivo = document.getElementById('archivo').files[0];
   if (!archivo) {
-    return Swal.fire({
-      icon:'warning',
-      title:'Archivo requerido',
-      text:'Debe cargar el Excel de participantes.'
-  });
+    return Swal.fire({ icon:'warning', title:'Archivo requerido', text:'Debe cargar el Excel de participantes.' });
   }
 
   const allowedTypes = [
@@ -1147,24 +795,15 @@ if (!chkTerminos || !chkTerminos.checked) {
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'application/msword'
   ];
-debugger;
-const allowedExtensions = ['xlsx', 'xls', 'docx'];
-const extension = archivo.name.split('.').pop().toLowerCase();
-
-console.log('Tipo de archivo:', archivo.type);
-console.log('Extensión del archivo:', extension);
+  const allowedExtensions = ['xlsx', 'xls', 'docx'];
+  const extension = archivo.name.split('.').pop().toLowerCase();
 
   if (!allowedTypes.includes(archivo.type) || !allowedExtensions.includes(extension)) { 
-    return Swal.fire({
-      icon:'error',
-      title:'Tipo de archivo inválido',
-      text:'Debe ser .xlsx, .xls, doc o .docx'
-    });
+    return Swal.fire({ icon:'error', title:'Tipo de archivo inválido', text:'Debe ser .xlsx, .xls, doc o .docx' });
   }
 
   const reader = new FileReader();
   reader.onload = async () => {
-    debugger;
     const base64Data = reader.result.split(',')[1];
     const datos = {
       espacio: document.getElementById('espacioSeleccionado').value,
@@ -1193,102 +832,77 @@ console.log('Extensión del archivo:', extension);
 
     try {
       const resp = await fetch('https://hook.us2.make.com/v81kdbf2dfxwswvwizjip1xxqk73h5ng', {
-        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos)
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(datos)
       });
       if (resp.ok) {
         Swal.fire({icon:'success',title:'Reserva enviada',text:'La solicitud fue enviada correctamente.'})
-        .then(()=> bootstrap.Modal.getInstance(document.getElementById('modalReserva')).hide());
+          .then(()=> bootstrap.Modal.getInstance(document.getElementById('modalReserva')).hide());
       } else throw new Error('No se pudo enviar la solicitud');
-    } catch(err){ Swal.fire({icon:'error',title:'Error',text:'No se pudo enviar la solicitud.'}); console.error(err);}
+    } catch(err){
+      Swal.fire({icon:'error',title:'Error',text:'No se pudo enviar la solicitud.'});
+      console.error(err);
+    }
   };
   reader.readAsDataURL(archivo);
 });
 
-const dias = {
-  "Lunes": "lunes",
-  "Martes": "martes",
-  "Miércoles": "miércoles",
-  "Jueves": "jueves",
-  "Viernes": "viernes",
-  "Sábado": "sábado",
-  "Domingo": "domingo"
-}
-const inamovibles = [
-  { date: '2025-12-25' }, // Navidad
-  { date: '2026-01-01' }, // Inicio de año
-  { date: '2025-09-17'}
-];
-const feriadosLocales = [
-  { date: '2025-09-17'} // Fiesta de Milagro 
-]
+const dias = {"Lunes":"lunes","Martes":"martes","Miércoles":"miércoles","Jueves":"jueves","Viernes":"viernes","Sábado":"sábado","Domingo":"domingo"};
+const inamovibles = [{ date: '2025-12-25' },{ date: '2026-01-01' },{ date: '2025-09-17'}];
+const feriadosLocales = [{ date: '2025-09-17'}];
 
 function traspasoDiasFeriados(fecha, feriado) {
-  let fechaFeriado  = new Date(fecha)
-  fecha = new Date(fecha)
+  let fechaFeriado  = new Date(fecha);
+  fecha = new Date(fecha);
 
   const esInamovible = (checkFecha) => {
-  return inamovibles.some(f => {
-    const fDate = new Date(f.date);
-    return fDate.toISOString().split('T')[0] === checkFecha.toISOString().split('T')[0];
-  });
-};
+    return inamovibles.some(f => {
+      const fDate = new Date(f.date);
+      return fDate.toISOString().split('T')[0] === checkFecha.toISOString().split('T')[0];
+    });
+  };
 
-  
-  
   const diaSemana = fecha.getDay(); // 0=domingo, 1=lunes...
   if (esInamovible(fecha)) return fecha;
   const nuevaFecha = new Date(fecha);
   let hayFeriado;
-  //Domingo
+
   if(diaSemana == 0){
     const fechaPosterior = new Date(fechaFeriado.setDate(fecha.getDate() + 1))
     hayFeriado = feriado.find(f => {
       const fDate = new Date(f.date);
       return fDate.toISOString().split('T')[0] === fechaPosterior.toISOString().split('T')[0];
-      
     }); 
   }
-  //Martes
   else if (diaSemana == 2){
     const fechaAnterior = new Date(fechaFeriado.setDate(fecha.getDate() - 1))
     hayFeriado = feriado.find(f => {
       const fDate = new Date(f.date);
       return fDate.toISOString().split('T')[0] === fechaAnterior.toISOString().split('T')[0];
-      
     }); 
   }
-  debugger;
-   // Si es martes, obtiene el dia lunes
-/*   const existeFeriadoAnterior = feriado.find((fer) =>{
-    return new Date(fer.date) == fechaAnterior
-  }) */
+
   if ((diaSemana === 2) && !(hayFeriado)) {   
-         // martes → lunes
     nuevaFecha.setDate(nuevaFecha.getDate() - 1);
-
   } else if (diaSemana === 3) {
-    // miércoles → viernes siguiente
     nuevaFecha.setDate(nuevaFecha.getDate() + 2);
-
   } else if (diaSemana === 4) {
-    // jueves → viernes siguiente
     nuevaFecha.setDate(nuevaFecha.getDate() + 1);
-
   } else if (diaSemana === 6) {
-    // sábado → viernes anterior
     nuevaFecha.setDate(nuevaFecha.getDate() - 1);
-  } 
-  else if ((diaSemana === 0) && !(hayFeriado)) {   // domingo → lunes
+  } else if ((diaSemana === 0) && !(hayFeriado)) {
     nuevaFecha.setDate(nuevaFecha.getDate() + 1);
+  } else if((diaSemana == 0) && (hayFeriado)) {
+    nuevaFecha.setDate(nuevaFecha.getDate() + 2);
   }
-  else if((diaSemana == 0) && (hayFeriado)) nuevaFecha.setDate(nuevaFecha.getDate() + 2);
 
   return nuevaFecha;
 }
 
-const fechaAcrtual = new Date()
+const fechaAcrtual = new Date();
 async function obtenerFeriadosEcuador() {
-  const anioActual = fechaAcrtual.getFullYear()
+  const anioActual = fechaAcrtual.getFullYear();
   const url = `https://date.nager.at/api/v3/PublicHolidays/${anioActual}/EC`;
   try {
     const response = await fetch(url);
@@ -1296,8 +910,8 @@ async function obtenerFeriadosEcuador() {
     const feriados = await response.json();
     const feriadosTotales = [...feriadosLocales, ...feriados];
     let diasFeriados = feriadosTotales.map((f) => {
-      const fechaFormateada = `${f.date}T00:01:00`
-      const fechaDescanso = traspasoDiasFeriados(fechaFormateada, feriados); // <-- aquí
+      const fechaFormateada = `${f.date}T00:01:00`;
+      const fechaDescanso = traspasoDiasFeriados(fechaFormateada, feriados);
       const diaFormateado = fechaDescanso.toISOString().split('T')[0];
 
       return {
@@ -1313,85 +927,63 @@ async function obtenerFeriadosEcuador() {
         title: 'Descanso por feriado: ' + f.localName
       };
     });
-    console.log(diasFeriados);
-    return diasFeriados
-    
+    return diasFeriados;
   } catch (error) {
     console.error('Error al obtener los feriados:', error);
     return [];
   }
 }
 
-
 // --- Calendario FullCalendar ---
 async function mostrarCalendario(idEspacio){
   const eventos = reservasPorEspacio[idEspacio] || [];
   const feriados = await obtenerFeriadosEcuador();
-  debugger
-  const todosLosEventos = [...eventos, ...feriados];
   if(calendar) calendar.destroy();
 
   calendar = new FullCalendar.Calendar(document.getElementById('calendar-modal'), {
-    locale:'es', 
-    initialView:'dayGridMonth', 
-    contentHeight:'auto', 
+    locale:'es',
+    initialView:'dayGridMonth',
+    contentHeight:'auto',
     aspectRatio: 1.5,
     fixedWeekCount:false,
-    eventDisplay:'background', 
+    eventDisplay:'background',
     events: eventos,
     showNonCurrentDates: false,
-    headerToolbar:{
-      left:'prev,next',
-      center:'title',
-      right:'today'},
-    buttonText:{
-      today:'Hoy'
-    }, 
-      firstDay:1,
+    headerToolbar:{ left:'prev,next', center:'title', right:'today'},
+    buttonText:{ today:'Hoy' },
+    firstDay:1,
     dateClick: info => {
       const esFeriado = feriados.some(f => {
         const fechaFeriado = new Date(f.inicio_reserva);
         return fechaFeriado.toISOString().split('T')[0] === info.dateStr;
       });
 
-      if (esFeriado) {
+      // Bloquear feriado solo si NO es Rectorado
+      if (esFeriado && !isRectorado()) {
         Swal.fire({
           icon: 'info',
           title: 'Día Feriado',
           text: `Es un día feriado. No se pueden hacer reservas.`
         }).then(() => {
-          // limpiar fechas
-         const container = document.getElementById('turnos-del-dia');
-         container.innerHTML = '<h6 class="text-muted">Hoy es un día feriado. No se pueden realizar reservas. ¡Disfrute el día!</h6>';
-
+          const container = document.getElementById('turnos-del-dia');
+          container.innerHTML = '<h6 class="text-muted">Hoy es un día feriado. No se pueden realizar reservas. ¡Disfrute el día!</h6>';
           document.getElementById('fecha_inicio').value = "";
           document.getElementById('fecha_fin').value = "";
           document.getElementById('btn-enviar').setAttribute('disabled', 'disabled');
-          // bloquear todos los campos del formulario
-          document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea")
-          .forEach(el => el.disabled = true);
+          document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = true);
         });
-        ;
-        return; 
-       
-        
+        return;
       }
+
       document.getElementById('btn-enviar').removeAttribute('disabled');
-      document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea")
-      .forEach(el => el.disabled = false);
-      
-      const hoy = new Date(); 
-      hoy.setHours(0,0,0,0);
+      document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = false);
+
+      const hoy = new Date(); hoy.setHours(0,0,0,0);
       const partesFecha = info.dateStr.split('-');
-      const fechaSeleccionada = new Date(
-        parseInt(partesFecha[0]),
-        parseInt(partesFecha[1]) - 1,
-        parseInt(partesFecha[2])
-      );
+      const fechaSeleccionada = new Date(parseInt(partesFecha[0]), parseInt(partesFecha[1]) - 1, parseInt(partesFecha[2]));
       fechaSeleccionada.setHours(0, 0, 0, 0);
 
       if (fechaSeleccionada < hoy) return;
-
 
       document.getElementById('fecha_inicio').value = info.dateStr;
       document.getElementById('fecha_fin').value = info.dateStr;
@@ -1414,29 +1006,24 @@ function pintarDiasReservados(eventos){
     let inicio=new Date(e.inicio_reserva), fin=new Date(e.fin_reserva);
     for(let d=new Date(inicio); d<=fin; d.setDate(d.getDate()+1)) dias.add(d.toISOString().split('T')[0]);
   });
-  document.querySelectorAll('.fc-daygrid-day').forEach(c=>{ const fecha=c.getAttribute('data-date'); if(dias.has(fecha)) c.classList.add('fc-day-with-event'); });
+  document.querySelectorAll('.fc-daygrid-day').forEach(c=>{
+    const fecha=c.getAttribute('data-date');
+    if(dias.has(fecha)) c.classList.add('fc-day-with-event');
+  });
 }
 
 function pintarDiasFeriados(feriados) {
   const diasFeriados = new Set();
-  
-  feriados.forEach(f => {
-    diasFeriados.add(f.inicio_reserva); // o f.date si quieres usar directamente la fecha original
-  });
-
+  feriados.forEach(f => { diasFeriados.add(f.inicio_reserva); });
   document.querySelectorAll('.fc-daygrid-day').forEach(c => {
     const fecha = c.getAttribute('data-date');
-    if (diasFeriados.has(fecha)) {
-      c.classList.add('fc-day-feriado'); // clase CSS para feriados
-    }
+    if (diasFeriados.has(fecha)) c.classList.add('fc-day-feriado');
   });
 }
 
 function mostrarReservasDelDia(fechaSeleccionada, eventos) {
-
   const container = document.getElementById('turnos-del-dia');
-  const fecha = new Date(fechaSeleccionada + 'T00:00:00'); // Aseguramos que la fecha sea a medianoche
-  
+  const fecha = new Date(fechaSeleccionada + 'T00:00:00');
   const reservasDelDia = eventos.filter(e => {
     const inicio = new Date(e.inicio_reserva);
     const fin = new Date(e.fin_reserva);
@@ -1445,31 +1032,25 @@ function mostrarReservasDelDia(fechaSeleccionada, eventos) {
 
   if (reservasDelDia.length === 0) {
     container.innerHTML = '<h6 class="text-muted">No hay reservas para este día.</h6>';
-
     return;
   }
   let html = '<div class="list-group">';
   reservasDelDia.forEach(e => {
     const fechaInicio = new Date(e.inicio_reserva);
     const fechaFin = new Date(e.fin_reserva);
-
     const diaInicio = fechaInicio.toLocaleDateString('es-EC', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    const horaInicio = e.hora_inicio
-
+    const horaInicio = e.hora_inicio;
     const diaFin = fechaFin.toLocaleDateString('es-EC', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    const horaFin = e.hora_fin
+    const horaFin = e.hora_fin;
     const codigoReserva = e.id_reserva ? `Reserva R${e.id_reserva}` : 'Reserva sin código';
-
     html += `
       <div class="list-group-item">
         <h6 class="fw-bold text-primary mb-2">${codigoReserva}</h6>
         <p class="mb-1"><strong>Inicio Reserva:</strong> ${diaInicio} - ${horaInicio}</p>
         <p class="mb-1"><strong>Fin Reserva:</strong> ${diaFin} - ${horaFin}</p>
-      </div>
-    `;
+      </div>`;
   });
   html += '</div>';
-
   container.innerHTML = html;
 }
 </script>
