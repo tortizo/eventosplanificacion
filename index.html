@@ -125,19 +125,31 @@
         <hr>
         <form id="formulario-espacio">
           <div class="row mb-3">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <label for="nombre_evento" class="form-label">Nombre del Evento:</label>
               <input type="text" class="form-control" id="nombre_evento" required>
             </div>
+
+              <div class="col-md-6">
+                <label for="modalidad" class="form-label">Modalidad:</label>
+                <select class="form-select" id="modalidad" name="modalidad" required>
+                  <option value="">Seleccione una modalidad</option>
+                  <option value="Presencial">Presencial</option>
+                  
+                  <option value="Híbrido">Híbrido</option>
+                </select>
+              </div>
+              </div>
+
             <div class="row mb-3">
               <div class="col-md-6">
-                <label for="categoria" class="form-label">Seleccionar categoría:</label>
+                <label for="categoria" class="form-label">Categoría:</label>
                 <select class="form-select" id="categoria" name="categoria" required>
                   <option value="">Seleccione una categoría</option>
                 </select>
               </div>
               <div class="col-md-6">
-                <label for="tipo" class="form-label">Seleccionar Tipo:</label>
+                <label for="tipo" class="form-label">Tipo de evento:</label>
                 <select class="form-select" id="tipo" name="tipo" required>
                   <option value="">Seleccione un Tipo</option>
                 </select>
@@ -193,7 +205,8 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="solicitante" class="form-label">Solicitante:</label>
-                <input type="text" class="form-control" id="solicitante" required>
+
+                <input type="text" class="form-control" id="solicitante" placeholder="Ingrese Nombres Completos" required>
               </div>
               <div class="col-md-6">
                 <label for="correo" class="form-label">Correo institucional:</label>
@@ -210,7 +223,8 @@
               </div>
               <div class="col-md-6">
                 <label for="responsable_reserva" class="form-label">Responsable reserva:</label>
-                <input type="text" class="form-control" id="responsable_reserva" required>
+
+                <input type="text" class="form-control" id="responsable_reserva" placeholder="Ingrese Nombres Completos" required>
               </div>
             </div>
 
@@ -484,7 +498,8 @@ const categoriasPorEspacio = [
       "Entrega de Reconocimiento por rendimiento académico."
     ]},
     {"codigo":3,"text":"Eventos Interinstitucionales","tipo":[
-      "Firma de convenios interinstitucionales y/o de cooperación interinstitucional"
+      "Firma de convenios interinstitucionales y/o de cooperación interinstitucional",
+      "Eventos que sean organizados por otras instituciones"
     ]},
     {"codigo":4,"text":"Eventos Culturales","tipo":[
       "Festival Internacional de Teatro Uniendo Pueblos FITUP"
