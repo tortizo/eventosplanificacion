@@ -305,13 +305,25 @@ let espacioSeleccionadoId = null;
 const isRectorado = () =>
   (($('#unidad option:selected').text() || '').trim().toUpperCase() === 'RECTORADO');
 
-// Aplica/retira reglas de auditorios (tope 17:00) según unidad
+// --- RANGO HORARIO PARA AUDITORIOS (08:00–17:00) ---
+function setRangoAuditorio(esAuditorio) {
+  const hi = document.getElementById('hora_inicio');
+  const hf = document.getElementById('hora_fin');
+
+  if (esAuditorio && !isRectorado()) {
+    hi.min = '08:00'; hi.max = '17:00';
+    hf.min = '08:00'; hf.max = '17:00';
+  } else {
+    hi.removeAttribute('min'); hi.removeAttribute('max');
+    hf.removeAttribute('min'); hf.removeAttribute('max');
+  }
+}
+
+// Muestra/oculta recursos y aplica rango, sin fijar valores
 function aplicarReglasAuditorio(esAuditorio) {
   const recursosContainer = document.getElementById("recursos-container");
   const recursosInput = document.getElementById("recursos");
-  const horaFinInput = document.getElementById("hora_fin");
 
-  // Recursos siguen siendo requeridos en auditorios
   if (esAuditorio) {
     recursosContainer.style.display = "block";
     recursosInput.setAttribute("required", "required");
@@ -320,13 +332,7 @@ function aplicarReglasAuditorio(esAuditorio) {
     recursosInput.removeAttribute("required");
   }
 
-  // Tope 17:00 solo si NO es Rectorado
-  if (esAuditorio && !isRectorado()) {
-    horaFinInput.value = "17:00";
-    horaFinInput.setAttribute("max", "17:00");
-  } else {
-    horaFinInput.removeAttribute("max");
-  }
+  setRangoAuditorio(esAuditorio);
 }
 
 // --- Cargar espacios ---
@@ -454,7 +460,6 @@ const unidades = [
   {"codigo":43,"text":"Vicerrectorado de Vinculación"},
   {"codigo":44,"text":"Vicerrectorado de Investigación y de Posgrado"},
   {"codigo":45,"text":"Vicerrectorado Académico de Formación de Grado"}
-
 ];
 
 function cargarUnidades() {
@@ -591,7 +596,7 @@ function cargarTipo(categoriaId, nombreEspacio) {
   });
 }
 
-// --- Validaciones ---
+// --- Validaciones de capacidad ---
 document.getElementById('participantes').addEventListener('blur', () => {
   const input = document.getElementById('participantes');
   const max = parseInt(input.getAttribute('max')), valor = parseInt(input.value);
@@ -601,91 +606,81 @@ document.getElementById('participantes').addEventListener('blur', () => {
   }
 });
 
+// ====== UTILIDADES DE FECHA/HORA Y VALIDACIONES ======
+
+// Construye fechas sin depender del parser de Date (evita TZ)
+function parseFechaHora(fecha, hora) {
+  const [y, m, d] = (fecha || '').split('-').map(Number);
+  const [hh, mm] = (hora || '').split(':').map(Number);
+  return (y && m && d && hh >= 0 && mm >= 0) ? new Date(y, m - 1, d, hh, mm, 0, 0) : null;
+}
+
+// Ajusta restricciones min/max en fin según inicio (respetando 08:00–17:00 si aplica)
+function setRestricciones() {
+  const fi = document.getElementById('fecha_inicio');
+  const hi = document.getElementById('hora_inicio');
+  const ff = document.getElementById('fecha_fin');
+  const hf = document.getElementById('hora_fin');
+
+  if (fi.value) ff.min = fi.value; else ff.removeAttribute('min');
+
+  const currentMin = hf.getAttribute('min') || ''; // puede ser 08:00 si es auditorio
+  if (fi.value && ff.value && fi.value === ff.value && hi.value) {
+    // min de hora_fin es el máximo entre el rango actual (p.ej. 08:00) y la hora de inicio
+    hf.min = (currentMin && currentMin > hi.value) ? currentMin : hi.value;
+  } else {
+    // si son días distintos, mantenemos min de auditorio si existe
+    if (currentMin) hf.min = currentMin; else hf.removeAttribute('min');
+  }
+}
+
+// 24h de anticipación (solo al cambiar hora de inicio)
 function validarReserva() {
-  // Excepción: Rectorado ignora la regla de 24 horas
   if (isRectorado()) return;
   const fecha = document.getElementById('fecha_inicio').value;
   const hora = document.getElementById('hora_inicio').value;
+  if (!fecha || !hora) return;
   const now = new Date();
-  const inicio = new Date(`${fecha}T${hora}`);
-  if ((inicio-now)/(1000*60*60)<24) Swal.fire({icon:'warning', title:'Tiempo insuficiente', text:'Debe reservar con al menos 24 horas de anticipación.'});
+  const inicio = parseFechaHora(fecha, hora);
+  if (!inicio) return;
+  if ((inicio - now) / (1000*60*60) < 24) {
+    Swal.fire({icon:'warning', title:'Tiempo insuficiente', text:'Debe reservar con al menos 24 horas de anticipación.'});
+  }
 }
-['fecha_inicio','hora_inicio','fecha_fin','hora_fin'].forEach(id => document.getElementById(id).addEventListener('change', validarReserva));
+document.getElementById('hora_inicio').addEventListener('change', validarReserva);
 
-// ...existing code...
-function validarMismoHorario() {
-  const fecha = document.getElementById('fecha_inicio').value.trim();
-  const hora = document.getElementById('hora_inicio').value.trim();
-  const fechaFin = document.getElementById('fecha_fin').value.trim();
-  const horaFin = document.getElementById('hora_fin').value.trim();
+// No validar mientras faltan campos; solo al terminar hora_fin y en submit
+function validarHoras() {
+  const fi = document.getElementById('fecha_inicio').value.trim();
+  const hi = document.getElementById('hora_inicio').value.trim();
+  const ff = document.getElementById('fecha_fin').value.trim();
+  const hf = document.getElementById('hora_fin').value.trim();
 
-  if (!fecha || !hora || !fechaFin || !horaFin) return true;
+  if (!fi || !hi || !ff || !hf) return true;
 
-  const nuevaInicio = new Date(`${fecha}T${hora}:00`).getTime();
-  const nuevaFin = new Date(`${fechaFin}T${horaFin}:00`).getTime();
+  const inicio = parseFechaHora(fi, hi);
+  const fin    = parseFechaHora(ff, hf);
+  if (!inicio || !fin) return true;
 
-  const reservas = reservasPorEspacio[espacioSeleccionadoId] || [];
-  let conflictoSolapamiento = false;
-  let conflictoHoraExtra = false;
-
-  reservas.forEach(r => {
-    const rFechaInicio = (r.inicio_reserva || '').substring(0, 10);
-    const rHoraInicio = (r.hora_inicio || '').trim();
-    const rFechaFin = (r.fin_reserva || '').substring(0, 10);
-    const rHoraFin = (r.hora_fin || '').trim();
-
-    if (!rFechaInicio || !rHoraInicio || !rFechaFin || !rHoraFin) return;
-
-    const inicio = new Date(`${rFechaInicio}T${rHoraInicio}:00`).getTime();
-    const fin = new Date(`${rFechaFin}T${rHoraFin}:00`).getTime();
-    const finMasUnaHora = fin + 60 * 60 * 1000;
-
-    if (nuevaInicio < fin && nuevaFin > inicio) {
-      conflictoSolapamiento = true;
-    }
-    if (!conflictoSolapamiento && nuevaInicio < finMasUnaHora && nuevaInicio >= fin) {
-      conflictoHoraExtra = true;
-    }
-    if (conflictoSolapamiento) {
-      Swal.fire({ icon: 'warning', title: 'Conflicto de horario', text: 'Ya existe una reserva en el horario seleccionado. Por favor, elija otro horario disponible.' });
-      document.getElementById('hora_inicio').value = '';
-      document.getElementById('hora_fin').value = '';
-      return false;
-    }
-
-    if (conflictoHoraExtra) {
-      Swal.fire({ icon: 'warning', title: 'Conflicto de horario', text: 'Debe esperar al menos una hora desde la última reserva antes de realizar una nueva.' });
-      document.getElementById('hora_inicio').value = '';
-      document.getElementById('hora_fin').value = '';
-      return false;
-    }
-  });
-  if(conflictoSolapamiento || conflictoHoraExtra) return false;
+  if (fin < inicio) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error en las fechas',
+      text: 'La hora de fin no puede ser menor a la hora de inicio.'
+    });
+    return false;
+  }
   return true;
 }
 
-// --- validar horas ---
-function validarHoras() {
-  const fechaInicio = document.getElementById('fecha_inicio').value.trim();
-  const horaInicio = document.getElementById('hora_inicio').value.trim();
-  const fechaFin = document.getElementById('fecha_fin').value.trim();
-  const horaFin = document.getElementById('hora_fin').value.trim();
-  if (!fechaInicio || !horaInicio || !fechaFin || !horaFin) return true;
-
-  const inicio = new Date(`${fechaInicio}T${horaInicio}:00`);
-  const fin = new Date(`${fechaFin}T${horaFin}:00`);
-
-  if (fin < inicio) {
-    Swal.fire({ icon: 'error', title: 'Error en las fechas', text: 'La hora de fin no puede ser menor a la hora de inicio.' });
-    document.getElementById('hora_fin').value = '';
-    return false;
-  }
-  return true; 
-}
-document.getElementById('fecha_inicio').addEventListener('change', validarHoras); 
-document.getElementById('hora_inicio').addEventListener('change', validarHoras);
-document.getElementById('fecha_fin').addEventListener('change', validarHoras);  
-document.getElementById('hora_fin').addEventListener('change', validarHoras);
+// Listeners para restricciones/validación
+['fecha_inicio','hora_inicio','fecha_fin'].forEach(id => {
+  document.getElementById(id).addEventListener('change', setRestricciones);
+});
+document.getElementById('hora_fin').addEventListener('change', () => {
+  setRestricciones();
+  validarHoras();
+});
 
 let feriadosTotales = []; 
 async function inicializarFeriados() {
@@ -710,9 +705,9 @@ document.addEventListener('click', e => {
   const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
   const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(nombreEspacio));
 
-  // Reglas de auditorios (tope 17:00 condicional a Rectorado)
+  // Reglas de auditorios (08:00–17:00, sin fijar valores)
   aplicarReglasAuditorio(esAuditorio);
-  // Reaplicar si cambian la unidad dentro del modal
+  // Reaplicar si cambian la unidad dentro del modal (Rectorado)
   $('#unidad').off('change._rectorado').on('change._rectorado', () => aplicarReglasAuditorio(esAuditorio));
 
   const capacidadText = btn.closest('.card').querySelector('.card-text:nth-of-type(2)').textContent;
@@ -752,6 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('modalReserva').addEventListener('shown.bs.modal', async () => {
   if (!espacioSeleccionadoId) return;
   await mostrarCalendario(espacioSeleccionadoId);
+  setRestricciones(); // asegura restricciones tras abrir modal
 });
 
 document.getElementById('modalReserva').addEventListener('hidden.bs.modal', () => {
@@ -761,26 +757,42 @@ document.getElementById('modalReserva').addEventListener('hidden.bs.modal', () =
   document.getElementById('btn-enviar').removeAttribute('disabled');
   document.getElementById("recursos-container").style.display = "none";
   document.getElementById("recursos").removeAttribute("required");
+  setRangoAuditorio(false);
 });
 
 // --- Submit ---
 document.getElementById('formulario-espacio').addEventListener('submit', async e => {
   e.preventDefault();
 
+  setRestricciones();
+  if (!validarHoras()) return; // bloqueo final de horas inválidas
+
   const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
   const espacioNombre = document.getElementById("nombre").value;
   const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(espacioNombre));
 
-  // Validación 17:00 solo si NO es Rectorado
+  // Validación auditorios: 08:00–17:00 y fin >= inicio (sin popups al elegir fecha)
   if (esAuditorio && !isRectorado()) {
-    const horaFin = document.getElementById("hora_fin").value;
-    if (horaFin !== "17:00") {
-      Swal.fire({ icon: 'error', title: 'Hora inválida', text: 'En este espacio, la hora de fin debe ser exactamente 17:00.' });
+    const hi = document.getElementById("hora_inicio").value;
+    const hf = document.getElementById("hora_fin").value;
+    const fi = document.getElementById("fecha_inicio").value;
+    const ff = document.getElementById("fecha_fin").value;
+
+    if (hi && (hi < "08:00" || hi > "17:00")) {
+      Swal.fire({ icon: 'error', title: 'Hora de inicio inválida', text: 'En auditorios, la hora de inicio debe estar entre 08:00 y 17:00.' });
+      return;
+    }
+    if (hf && (hf < "08:00" || hf > "17:00")) {
+      Swal.fire({ icon: 'error', title: 'Hora de fin inválida', text: 'En auditorios, la hora de fin debe estar entre 08:00 y 17:00.' });
+      return;
+    }
+    if (fi && ff && fi === ff && hi && hf && hf < hi) {
+      Swal.fire({ icon: 'error', title: 'Error en las horas', text: 'La hora de fin no puede ser menor a la de inicio.' });
       return;
     }
   }
 
-  // Link de recursos (se mantiene como obligatorio en auditorios)
+  // Link de recursos (obligatorio en auditorios)
   if (esAuditorio) {
     const recursos = document.getElementById("recursos").value.trim();
     if (!recursos) {
@@ -984,6 +996,8 @@ async function mostrarCalendario(idEspacio){
           container.innerHTML = '<h6 class="text-muted">Hoy es un día feriado. No se pueden realizar reservas. ¡Disfrute el día!</h6>';
           document.getElementById('fecha_inicio').value = "";
           document.getElementById('fecha_fin').value = "";
+          document.getElementById('hora_inicio').value = "";
+          document.getElementById('hora_fin').value = "";
           document.getElementById('btn-enviar').setAttribute('disabled', 'disabled');
           document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = true);
         });
@@ -1000,8 +1014,15 @@ async function mostrarCalendario(idEspacio){
 
       if (fechaSeleccionada < hoy) return;
 
+      // set fechas
       document.getElementById('fecha_inicio').value = info.dateStr;
-      document.getElementById('fecha_fin').value = info.dateStr;
+      document.getElementById('fecha_fin').value   = info.dateStr;
+
+      // limpiar horas para evitar validaciones a mitad de edición
+      document.getElementById('hora_inicio').value = '';
+      document.getElementById('hora_fin').value    = '';
+
+      setRestricciones(); // min/max tras elegir día
 
       mostrarReservasDelDia(info.dateStr, eventos);
     },
@@ -1067,6 +1088,58 @@ function mostrarReservasDelDia(fechaSeleccionada, eventos) {
   });
   html += '</div>';
   container.innerHTML = html;
+}
+
+// --- Solapamientos ---
+function validarMismoHorario() {
+  const fecha = document.getElementById('fecha_inicio').value.trim();
+  const hora = document.getElementById('hora_inicio').value.trim();
+  const fechaFin = document.getElementById('fecha_fin').value.trim();
+  const horaFin = document.getElementById('hora_fin').value.trim();
+
+  if (!fecha || !hora || !fechaFin || !horaFin) return true;
+
+  const nuevaInicio = new Date(`${fecha}T${hora}:00`).getTime();
+  const nuevaFin = new Date(`${fechaFin}T${horaFin}:00`).getTime();
+
+  const reservas = reservasPorEspacio[espacioSeleccionadoId] || [];
+  let conflictoSolapamiento = false;
+  let conflictoHoraExtra = false;
+
+  reservas.forEach(r => {
+    const rFechaInicio = (r.inicio_reserva || '').substring(0, 10);
+    const rHoraInicio = (r.hora_inicio || '').trim();
+    const rFechaFin = (r.fin_reserva || '').substring(0, 10);
+    const rHoraFin = (r.hora_fin || '').trim();
+
+    if (!rFechaInicio || !rHoraInicio || !rFechaFin || !rHoraFin) return;
+
+    const inicio = new Date(`${rFechaInicio}T${rHoraInicio}:00`).getTime();
+    const fin = new Date(`${rFechaFin}T${rHoraFin}:00`).getTime();
+    const finMasUnaHora = fin + 60 * 60 * 1000;
+
+    if (nuevaInicio < fin && nuevaFin > inicio) {
+      conflictoSolapamiento = true;
+    }
+    if (!conflictoSolapamiento && nuevaInicio < finMasUnaHora && nuevaInicio >= fin) {
+      conflictoHoraExtra = true;
+    }
+    if (conflictoSolapamiento) {
+      Swal.fire({ icon: 'warning', title: 'Conflicto de horario', text: 'Ya existe una reserva en el horario seleccionado. Por favor, elija otro horario disponible.' });
+      document.getElementById('hora_inicio').value = '';
+      document.getElementById('hora_fin').value = '';
+      return false;
+    }
+
+    if (conflictoHoraExtra) {
+      Swal.fire({ icon: 'warning', title: 'Conflicto de horario', text: 'Debe esperar al menos una hora desde la última reserva antes de realizar una nueva.' });
+      document.getElementById('hora_inicio').value = '';
+      document.getElementById('hora_fin').value = '';
+      return false;
+    }
+  });
+  if(conflictoSolapamiento || conflictoHoraExtra) return false;
+  return true;
 }
 </script>
 </body>
