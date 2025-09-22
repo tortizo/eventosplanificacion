@@ -719,20 +719,20 @@ document.addEventListener('click', e => {
   cargarCategorias(nombreEspacio);
   cargarUnidades();
 
-  // Validación feriado / fin de semana (NO aplica para Rectorado)
-  const ahora = new Date();
-  const diaSemana = ahora.getDay(); // 0=domingo, 6=sábado
-  const hoyFormateado = ahora.toISOString().split('T')[0];
 
-  if (!isRectorado()) {
-    const esFeriado = feriadosTotales.some(f => f.inicio_reserva === hoyFormateado);
-    if (esFeriado) {
-      return Swal.fire({ icon: 'warning', title: 'Reserva no permitida', text: 'No se pueden realizar reservas en feriados.' });
-    }
-    if (diaSemana === 0 || diaSemana === 6) {
-      return Swal.fire({ icon: 'warning', title: 'Reserva no permitida', text: 'Solo se permiten reservas de lunes a viernes.' });
-    }
+// Aviso si hoy es feriado o fin de semana, pero NO bloquear apertura del modal
+const ahora = new Date();
+const diaSemana = ahora.getDay(); // 0=domingo, 6=sábado
+const hoyFormateado = ahora.toISOString().split('T')[0];
+
+if (!isRectorado()) {
+  const esFeriadoHoy = (feriadosTotales || []).some(f => f.inicio_reserva === hoyFormateado);
+  if (esFeriadoHoy) {
+    Swal.fire({ icon: 'info', title: 'Hoy es feriado', text: 'Puedes reservar para otro día disponible.' });
+  } else if (diaSemana === 0 || diaSemana === 6) {
+    Swal.fire({ icon: 'info', title: 'Fin de semana', text: 'Puedes reservar para un día laborable.' });
   }
+}
 
   const modal = new bootstrap.Modal(document.getElementById('modalReserva'));
   modal.show();
@@ -990,17 +990,21 @@ async function mostrarCalendario(idEspacio){
         Swal.fire({
           icon: 'info',
           title: 'Día Feriado',
-          text: `Es un día feriado. No se pueden hacer reservas.`
-        }).then(() => {
-          const container = document.getElementById('turnos-del-dia');
-          container.innerHTML = '<h6 class="text-muted">Hoy es un día feriado. No se pueden realizar reservas. ¡Disfrute el día!</h6>';
-          document.getElementById('fecha_inicio').value = "";
-          document.getElementById('fecha_fin').value = "";
-          document.getElementById('hora_inicio').value = "";
-          document.getElementById('hora_fin').value = "";
-          document.getElementById('btn-enviar').setAttribute('disabled', 'disabled');
-          document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = true);
+          text: 'Es un día feriado. No se pueden hacer reservas para esta fecha.'
         });
+        const container = document.getElementById('turnos-del-dia');
+        container.innerHTML = '<h6 class="text-muted">Seleccione otra fecha disponible en el calendario.</h6>';
+
+        // Limpiar selección, pero mantener el formulario habilitado
+        document.getElementById('fecha_inicio').value = "";
+        document.getElementById('fecha_fin').value = "";
+        document.getElementById('hora_inicio').value = "";
+        document.getElementById('hora_fin').value = "";
+        document.getElementById('btn-enviar').setAttribute('disabled', 'disabled');
+
+        // Mantener inputs habilitados para que el usuario pueda seguir interactuando
+        document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = false);
+
         return;
       }
 
