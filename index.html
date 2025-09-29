@@ -39,10 +39,13 @@
     .texto-mediano { font-size: 1rem; }
     .card-reservado { background-color: #e2e3e5; }
     .btn-reservar:disabled { background-color: #dc3545; cursor: not-allowed; }
+
     .fc .fc-toolbar-title { font-size: 1.25rem; }
     .fc .fc-toolbar.fc-header-toolbar { margin-bottom: 0.85rem; }
     .fc .fc-daygrid-day-events { display: none; }
-    .fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid, .fc-theme-standard .fc-scrollgrid-section, .fc-theme-standard .fc-scrollgrid-sync-table, .fc-theme-standard .fc-scrollgrid-sync-inner { border: none !important; box-shadow: none !important; }
+    .fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid,
+    .fc-theme-standard .fc-scrollgrid-section, .fc-theme-standard .fc-scrollgrid-sync-table,
+    .fc-theme-standard .fc-scrollgrid-sync-inner { border: none !important; box-shadow: none !important; }
     .fc-daygrid-day { background-color: #f0f0f0 !important; }
     .fc-daygrid-day-frame { height: 40px !important; display: flex; align-items: center; justify-content: center; border-radius: 10px; transition: all 0.2s ease-in-out; gap: 5px; }
     .fc-daygrid-day-top { display: flex; justify-content: center; align-items: center; }
@@ -52,9 +55,13 @@
     .fc .fc-daygrid-day-number { padding: 15px 15px; position: relative; z-index: 4; }
     .fc-daygrid-day-number, .fc-col-header-cell-cushion { text-decoration: none !important; }
     .fc-daygrid-day-number:hover { background-color: #999694; box-shadow: 0 0 5px rgba(142,109,173,0.1); cursor: pointer; }
+
     .fc-day-with-event .fc-daygrid-day-number { background-color: #044191e6 !important; color: #fff !important; border-color: #fff !important; }
     .fc-day-feriado .fc-daygrid-day-number{ background-color: #09792e !important; border-color: #ffffff !important; color: #ffffff !important; }
+
     .fc-day-disabled .fc-daygrid-day-number { background-color: #fff !important; border: 2px solid #044191 !important; color: #03091ad4 !important; opacity: 0.5 !important; pointer-events: none !important; }
+
+    .fc-dia-finsemana .fc-daygrid-day-number { border: 2px solid #044191 !important; opacity: 0.5 !important; }
     #turnos-del-dia p { font-size: 14px; }
     #turnos-del-dia h6 { font-size: 15px; }
     .fc-day-other { display: none !important; }
@@ -130,165 +137,161 @@
               <input type="text" class="form-control" id="nombre_evento" required>
             </div>
 
-              <div class="col-md-6">
-                <label for="modalidad" class="form-label">Modalidad:</label>
-                <select class="form-select" id="modalidad" name="modalidad" required>
-                  <option value="">Seleccione una modalidad</option>
-                  <option value="Presencial">Presencial</option>
-                  
-                  <option value="Híbrido">Híbrido</option>
-                </select>
-              </div>
-              </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="categoria" class="form-label">Categoría:</label>
-                <select class="form-select" id="categoria" name="categoria" required>
-                  <option value="">Seleccione una categoría</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="tipo" class="form-label">Tipo de evento:</label>
-                <select class="form-select" id="tipo" name="tipo" required>
-                  <option value="">Seleccione un Tipo</option>
-                </select>
-              </div>
+            <div class="col-md-6">
+              <label for="modalidad" class="form-label">Modalidad:</label>
+              <select class="form-select" id="modalidad" name="modalidad" required>
+                <option value="">Seleccione una modalidad</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Híbrido">Híbrido</option>
+              </select>
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-12">
-                    <label for="alcance" class="form-label">Alcance:</label>
-                    <select class="form-select" id="alcance" name="alcance" required>
-                      <option value="">Seleccione un alcance</option>
-                      <option value="Nacional">Nacional</option>
-                      <option value="Internacional">Internacional</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="fecha_inicio" class="form-label">Fecha de inicio:</label>
-                    <input type="date" class="form-control" id="fecha_inicio" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="hora_inicio" class="form-label">Hora de inicio:</label>
-                    <input type="time" class="form-control" id="hora_inicio" required>
-                  </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="categoria" class="form-label">Categoría:</label>
+              <select class="form-select" id="categoria" name="categoria" required>
+                <option value="">Seleccione una categoría</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="tipo" class="form-label">Tipo de evento:</label>
+              <select class="form-select" id="tipo" name="tipo" required>
+                <option value="">Seleccione un Tipo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="alcance" class="form-label">Alcance:</label>
+                  <select class="form-select" id="alcance" name="alcance" required>
+                    <option value="">Seleccione un alcance</option>
+                    <option value="Nacional">Nacional</option>
+                    <option value="Internacional">Internacional</option>
+                  </select>
                 </div>
               </div>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="actividad" class="form-label">Actividad a realizar:</label>
-                <textarea class="form-control" id="actividad" rows="3" required></textarea>
-              </div>
-              <div class="col-md-6">
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <label for="fecha_fin" class="form-label">Fecha de fin:</label>
-                    <input type="date" class="form-control" id="fecha_fin" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="hora_fin" class="form-label">Hora de fin:</label>
-                    <input type="time" class="form-control" id="hora_fin" required>
-                  </div>
+            <div class="col-md-6">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="fecha_inicio" class="form-label">Fecha de inicio:</label>
+                  <input type="date" class="form-control" id="fecha_inicio" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="hora_inicio" class="form-label">Hora de inicio:</label>
+                  <input type="time" class="form-control" id="hora_inicio" required>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="solicitante" class="form-label">Solicitante:</label>
-
-                <input type="text" class="form-control" id="solicitante" placeholder="Ingrese Nombres Completos" required>
-              </div>
-              <div class="col-md-6">
-                <label for="correo" class="form-label">Correo institucional:</label>
-                <input type="email" class="form-control" id="correo" required>
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="actividad" class="form-label">Actividad a realizar:</label>
+              <textarea class="form-control" id="actividad" rows="3" required></textarea>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="unidad" class="form-label">Unidad académica o administrativa:</label>
-                <select class="form-select" id="unidad" required style="width: 100%;">
-                  <option value="">Seleccione una Unidad</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="responsable_reserva" class="form-label">Responsable reserva:</label>
-
-                <input type="text" class="form-control" id="responsable_reserva" placeholder="Ingrese Nombres Completos" required>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="participantes" class="form-label">Número de participantes:</label>
-                <input type="number" class="form-control" id="participantes" required max="">
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="celular" class="form-label">Celular:</label>
-                  <input type="tel" class="form-control" id="celular"
-                         name="celular"
-                         pattern="^[0-9]{10}$"
-                         maxlength="10"
-                         inputmode="numeric"
-                         placeholder="Ej: 0987654321"
-                         oninvalid="this.setCustomValidity('Debe ingresar exactamente 10 números.')"
-                         oninput="this.setCustomValidity('')"
-                         required>
+            <div class="col-md-6">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="fecha_fin" class="form-label">Fecha de fin:</label>
+                  <input type="date" class="form-control" id="fecha_fin" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="hora_fin" class="form-label">Hora de fin:</label>
+                  <input type="time" class="form-control" id="hora_fin" required>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col-md-12">
-                <label for="archivo" class="form-label">Adjuntar archivo:</label>
-                <input type="file" class="form-control" id="archivo" name="archivo" accept=".xlsx,.xls,.docx">
-                <div class="form-text">El documento debe contener los datos complementarios de la reserva.</div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="solicitante" class="form-label">Solicitante:</label>
+              <input type="text" class="form-control" id="solicitante" placeholder="Ingrese Nombres Completos" required>
+            </div>
+            <div class="col-md-6">
+              <label for="correo" class="form-label">Correo institucional:</label>
+              <input type="email" class="form-control" id="correo" required>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="unidad" class="form-label">Unidad académica o administrativa:</label>
+              <select class="form-select" id="unidad" required style="width: 100%;">
+                <option value="">Seleccione una Unidad</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="responsable_reserva" class="form-label">Responsable reserva:</label>
+              <input type="text" class="form-control" id="responsable_reserva" placeholder="Ingrese Nombres Completos" required>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="participantes" class="form-label">Número de participantes:</label>
+              <input type="number" class="form-control" id="participantes" required max="" min="0" step="1" inputmode="numeric">
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="celular" class="form-label">Celular:</label>
+                <input type="tel" class="form-control" id="celular"
+                       name="celular"
+                       pattern="^[0-9]{10}$"
+                       maxlength="10"
+                       inputmode="numeric"
+                       placeholder="Ej: 0987654321"
+                       oninvalid="this.setCustomValidity('Debe ingresar exactamente 10 números.')"
+                       oninput="this.setCustomValidity('')"
+                       required>
               </div>
             </div>
+          </div>
 
-            <div class="row mb-3" id="recursos-container">
-              <div class="col-md-12">
-                <label for="recursos" class="form-label">Link de recursos:</label>
-                <input type="url" class="form-control" id="recursos">
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="archivo" class="form-label">Adjuntar archivo:</label>
+              <input type="file" class="form-control" id="archivo" name="archivo" accept=".xlsx,.xls,.doc,.docx,.pdf">
+              <div class="form-text">El documento debe contener los datos complementarios de la reserva.</div>
+            </div>
+          </div>
+
+          <div class="row mb-3" id="recursos-container">
+            <div class="col-md-12">
+              <label for="recursos" class="form-label">Link de recursos:</label>
+              <input type="url" class="form-control" id="recursos">
+            </div>
+          </div>
+
+          <input type="hidden" id="espacioSeleccionado" name="espacio">
+          <input type="hidden" id="emailResponsable" name="email_responsable">
+          <input type="hidden" id="nombre" name="nombre">
+          <input type="hidden" id="direccionResponsable" name="direccion_responsable">
+
+          <div class="row mb-3">
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terminos" required/>
+                <label class="form-check-label texto-mediano" for="terminos">
+                  Acepto los
+                  <a href="https://docs.google.com/document/d/1PNRoHcDD0k8BwewJDjTy6VdTOtCmurF_/edit?usp=drive_link&ouid=110049633757378533995&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+                  y el
+                  <a href="https://drive.google.com/file/d/1nQ1PjQqttC3Ho_ONk7p7AFIMt6Ok3NWL/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Protocolo para el Desarrollo de Eventos</a>.
+                </label>
+                <div class="form-text">Debe aceptar esta casilla para poder enviar la solicitud.</div>
               </div>
             </div>
+          </div>
 
-            <input type="hidden" id="espacioSeleccionado" name="espacio">
-            <input type="hidden" id="emailResponsable" name="email_responsable">
-            <input type="hidden" id="nombre" name="nombre">
-            <input type="hidden" id="direccionResponsable" name="direccion_responsable">
-
-            <!-- Términos -->
-            <div class="row mb-3">
-              <div class="col-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="terminos" required/>
-                  <label class="form-check-label texto-mediano" for="terminos">
-                    Acepto los
-                    <a href="https://docs.google.com/document/d/1PNRoHcDD0k8BwewJDjTy6VdTOtCmurF_/edit?usp=drive_link&ouid=110049633757378533995&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
-                    y el
-                    <a href="https://drive.google.com/file/d/1nQ1PjQqttC3Ho_ONk7p7AFIMt6Ok3NWL/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Protocolo para el Desarrollo de Eventos</a>.
-                  </label>
-                  <div class="form-text">Debe aceptar esta casilla para poder enviar la solicitud.</div>
-                </div>
-              </div>
-            </div>
-
-            <input type="hidden" id="estado_solicitud" name="estado_solicitud" value="PENDIENTE">
-            <div class="modal-footer">
-              <button id="btn-enviar" type="submit" class="btn btn-primary">Enviar Solicitud</button>
-            </div>
+          <input type="hidden" id="estado_solicitud" name="estado_solicitud" value="PENDIENTE">
+          <div class="modal-footer">
+            <button id="btn-enviar" type="submit" class="btn btn-primary">Enviar Solicitud</button>
+          </div>
         </form>
       </div>
     </div>
@@ -296,14 +299,84 @@
 </div>
 
 <script>
-const webAppUrl = "https://script.google.com/macros/s/AKfycbzvwipdMjsscWr8XePn2txkh6HQgma0vF75lKdUYaF_CxV1aRtiqZqez2XhNlx1L4hF/exec";
+const webAppUrl = "https://script.google.com/macros/s/AKfycby3AG1YcvOKM_8hWWxseZZbtMzzuZaTfWLsmDpwQ-p54oz-GTkRVGJdpcl6BhJu54w/exec";
 let reservasPorEspacio = {};
 let calendar;
 let espacioSeleccionadoId = null;
 
-// === EXCEPCIÓN RECTORADO ===
+/* === NUEVO: helpers de fecha local sin saltos de TZ === */
+function parseSoloFecha(ymd) {
+  const [y,m,d] = (ymd || '').split('-').map(Number);
+  if (!y || !m || !d) return null;
+  // Mediodía local para evitar cambios por DST/TZ
+  return new Date(y, m - 1, d, 12, 0, 0, 0);
+}
+function ymdLocal(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+/* === NUEVO: helpers de estado === */
+function leerEstado(reserva){
+  const campos = ['estado_solicitud','estado','estatus','status','estado_reserva','Estado','Estado_reserva','estadoReserva'];
+  for (const c of campos){
+    if (c in (reserva||{})){
+      const v = String(reserva[c] ?? '').trim().toUpperCase();
+      if (v) return v;
+    }
+  }
+  return '';
+}
+function esAnulada(reserva){
+  const e = leerEstado(reserva);
+  // Cubre: CANCELADO, CANCELADA, CANCELLED, RECHAZADO, RECHAZADA, REJECTED, ANULADO/ANULADA
+  return /CANCELAD|CANCELLED|RECHAZAD|REJECTED|ANULAD/.test(e);
+}
+function filtrarActivas(reservas){
+  return (reservas || []).filter(r => !esAnulada(r));
+}
+
+// === Detección de reserva pendiente (ampliada) ===
+function esReservaPendiente(reserva) {
+  if (!reserva || typeof reserva !== 'object') return false;
+  const leer = v => String(v ?? '').trim().toUpperCase();
+
+  const campos = [
+    'estado_solicitud','estado','estatus','status',
+    'estado_reserva','estadoReserva','Estado','Estado_reserva'
+  ];
+  for (const c of campos) {
+    if (c in reserva) {
+      const val = leer(reserva[c]);
+      if (val.includes('PEND')) return true; // PEND, PENDIENTE, PENDING
+      if (['APROBADO','APROBADA','ACEPTADO','ACEPTADA','CONFIRMADO','CONFIRMADA',
+           'RECHAZADO','RECHAZADA','CANCELADO','CANCELADA','ANULADO','ANULADA'].includes(val)) {
+        return false;
+      }
+    }
+  }
+  for (const k of ['aprobado','aceptado']) {
+    if (k in reserva) {
+      const v = leer(reserva[k]);
+      if (['FALSE','0','NO','PENDIENTE','PENDING'].includes(v)) return true;
+      if (['TRUE','1','SI','SÍ'].includes(v)) return false;
+    }
+  }
+  return false;
+}
+
+// === UNIDAD EXCEPCIÓN ===
 const isRectorado = () =>
   (($('#unidad option:selected').text() || '').trim().toUpperCase() === 'RECTORADO');
+
+// === UTIL: detectar si el espacio seleccionado es Auditorio A/V/W ===
+function esAuditorioSeleccionado() {
+  const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
+  const nombreEspacio = document.getElementById("nombre").value;
+  return ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(nombreEspacio));
+}
 
 // --- RANGO HORARIO PARA AUDITORIOS (08:00–17:00) ---
 function setRangoAuditorio(esAuditorio) {
@@ -319,20 +392,46 @@ function setRangoAuditorio(esAuditorio) {
   }
 }
 
-// Muestra/oculta recursos y aplica rango, sin fijar valores
+// Muestra/oculta recursos y aplica rango, sin fijar valores (siempre opcional)
 function aplicarReglasAuditorio(esAuditorio) {
   const recursosContainer = document.getElementById("recursos-container");
   const recursosInput = document.getElementById("recursos");
 
+  recursosInput.removeAttribute("required"); // OPCIONAL
+
   if (esAuditorio) {
     recursosContainer.style.display = "block";
-    recursosInput.setAttribute("required", "required");
   } else {
     recursosContainer.style.display = "none";
-    recursosInput.removeAttribute("required");
   }
 
   setRangoAuditorio(esAuditorio);
+  setTimeout(aplicarBloqueoFinDeSemana, 0);
+}
+
+// --- Bloqueo de fines de semana SOLO en auditorios, excepto Rectorado ---
+function aplicarBloqueoFinDeSemana() {
+  const celdas = document.querySelectorAll('.fc-daygrid-day');
+  const bloquear = esAuditorioSeleccionado() && !isRectorado();
+
+  celdas.forEach(c => {
+    const fecha = c.getAttribute('data-date');
+    if (!fecha) return;
+    const d = new Date(fecha + 'T00:00:00').getDay(); // 0 = domingo, 6 = sábado
+    const esFinde = (d === 0 || d === 6);
+
+    c.classList.remove('fc-dia-finsemana');
+    if (!c.classList.contains('fc-day-disabled')) {
+      c.style.pointerEvents = '';
+      c.style.opacity = '';
+    }
+
+    if (bloquear && esFinde) {
+      c.classList.add('fc-dia-finsemana');
+      c.style.pointerEvents = 'none';
+      c.style.opacity = '0.5';
+    }
+  });
 }
 
 // --- Cargar espacios ---
@@ -349,7 +448,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!espacios.length) return container.innerHTML = "<p>No se encontraron espacios disponibles.</p>";
 
       espacios.forEach((espacio) => {
-        reservasPorEspacio[espacio.idEspacio] = espacio.reservas || [];
+        // **Filtramos reservas anuladas/rechazadas**
+        reservasPorEspacio[espacio.idEspacio] = filtrarActivas(espacio.reservas || []);
 
         // Estado del espacio
         let estado = espacio.estado ? espacio.estado.toLowerCase() : "";
@@ -459,7 +559,8 @@ const unidades = [
   {"codigo":42,"text":"Rectorado"},
   {"codigo":43,"text":"Vicerrectorado de Vinculación"},
   {"codigo":44,"text":"Vicerrectorado de Investigación y de Posgrado"},
-  {"codigo":45,"text":"Vicerrectorado Académico de Formación de Grado"}
+  {"codigo":45,"text":"Vicerrectorado Académico de Formación de Grado"},
+  {"codigo":46,"text":"EPUNEMI"}
 ];
 
 function cargarUnidades() {
@@ -477,7 +578,7 @@ function cargarUnidades() {
   }
 
   $('#unidad').select2({
-    placeholder: "Selecione una Unidad",
+    placeholder: "Seleccione una Unidad",
     allowClear: true,
     width: '100%',
     dropdownParent: $('#formulario-espacio'),
@@ -497,7 +598,12 @@ const categoriasPorEspacio = [
       "Ceremonia Honoris Causa"
     ]},
     {"codigo":2,"text":"Eventos Institucionales","tipo":[
-      "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
+      "Congresos",
+      "Seminarios",
+      "Simposios",
+      "Encuentros",
+      "Talleres o jornadas",
+      "Otros",
       "Socialización de planes de las unidades organizacionales.",
       "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
       "Entrega de Reconocimiento por rendimiento académico."
@@ -523,7 +629,12 @@ const categoriasPorEspacio = [
   ]},
   {"espacio":"Auditorio A","categorias":[
     {"codigo":2,"text":"Eventos Institucionales","tipo":[
-      "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
+      "Congresos",
+      "Seminarios",
+      "Simposios",
+      "Encuentros",
+      "Talleres o jornadas",
+      "Otros",
       "Socialización de planes de las unidades organizacionales.",
       "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
       "Entrega de Reconocimiento por rendimiento académico."
@@ -534,7 +645,12 @@ const categoriasPorEspacio = [
   ]},
   {"espacio":"Auditorio V","categorias":[
     {"codigo":2,"text":"Eventos Institucionales","tipo":[
-      "Congresos, seminarios, simposios, encuentros, foros, talleres o jornadas, entre otros.",
+      "Congresos",
+      "Seminarios",
+      "Simposios",
+      "Encuentros",
+      "Talleres o jornadas",
+      "Otros",
       "Socialización de planes de las unidades organizacionales.",
       "Socialización de resultados de actividades y/o proyectos de vinculación e investigación",
       "Entrega de Reconocimiento por rendimiento académico."
@@ -596,11 +712,25 @@ function cargarTipo(categoriaId, nombreEspacio) {
   });
 }
 
-// --- Validaciones de capacidad ---
+// --- Validaciones de capacidad / participantes ---
+document.getElementById('participantes').addEventListener('input', () => {
+  const input = document.getElementById('participantes');
+  const val = Number(input.value);
+  if (!Number.isNaN(val) && val < 0) {
+    input.value = 0;
+  }
+});
+
 document.getElementById('participantes').addEventListener('blur', () => {
   const input = document.getElementById('participantes');
-  const max = parseInt(input.getAttribute('max')), valor = parseInt(input.value);
-  if (max && valor > max) {
+  const max = parseInt(input.getAttribute('max'));
+  const valor = parseInt(input.value);
+  if (!Number.isNaN(valor) && valor < 0) {
+    Swal.fire({ icon:'error', title:'Valor inválido', text:'No se permiten números negativos en participantes.' });
+    input.value = 0;
+    return;
+  }
+  if (max && !Number.isNaN(valor) && valor > max) {
     Swal.fire({ icon:'error', title:'Capacidad máxima excedida', text:`La capacidad máxima es ${max}` });
     input.value = '';
   }
@@ -624,12 +754,10 @@ function setRestricciones() {
 
   if (fi.value) ff.min = fi.value; else ff.removeAttribute('min');
 
-  const currentMin = hf.getAttribute('min') || ''; // puede ser 08:00 si es auditorio
+  const currentMin = hf.getAttribute('min') || '';
   if (fi.value && ff.value && fi.value === ff.value && hi.value) {
-    // min de hora_fin es el máximo entre el rango actual (p.ej. 08:00) y la hora de inicio
     hf.min = (currentMin && currentMin > hi.value) ? currentMin : hi.value;
   } else {
-    // si son días distintos, mantenemos min de auditorio si existe
     if (currentMin) hf.min = currentMin; else hf.removeAttribute('min');
   }
 }
@@ -704,11 +832,12 @@ document.addEventListener('click', e => {
 
   const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
   const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(nombreEspacio));
-
-  // Reglas de auditorios (08:00–17:00, sin fijar valores)
   aplicarReglasAuditorio(esAuditorio);
-  // Reaplicar si cambian la unidad dentro del modal (Rectorado)
-  $('#unidad').off('change._rectorado').on('change._rectorado', () => aplicarReglasAuditorio(esAuditorio));
+
+  $('#unidad').off('change._rectorado').on('change._rectorado', () => {
+    aplicarReglasAuditorio(esAuditorio);
+    aplicarBloqueoFinDeSemana();
+  });
 
   const capacidadText = btn.closest('.card').querySelector('.card-text:nth-of-type(2)').textContent;
   const max = parseInt(capacidadText.replace(/\D/g,''));  
@@ -719,36 +848,36 @@ document.addEventListener('click', e => {
   cargarCategorias(nombreEspacio);
   cargarUnidades();
 
+  const ahora = new Date();
+  const diaSemana = ahora.getDay();
+  const hoyFormateado = ahora.toISOString().split('T')[0];
 
-// Aviso si hoy es feriado o fin de semana, pero NO bloquear apertura del modal
-const ahora = new Date();
-const diaSemana = ahora.getDay(); // 0=domingo, 6=sábado
-const hoyFormateado = ahora.toISOString().split('T')[0];
-
-if (!isRectorado()) {
-  const esFeriadoHoy = (feriadosTotales || []).some(f => f.inicio_reserva === hoyFormateado);
-  if (esFeriadoHoy) {
-    Swal.fire({ icon: 'info', title: 'Hoy es feriado', text: 'Puedes reservar para otro día disponible.' });
-  } else if (diaSemana === 0 || diaSemana === 6) {
-    Swal.fire({ icon: 'info', title: 'Fin de semana', text: 'Puedes reservar para un día laborable.' });
+  if (!isRectorado()) {
+    const esFeriadoHoy = (feriadosTotales || []).some(f => f.inicio_reserva === hoyFormateado);
+    if (esFeriadoHoy) {
+      Swal.fire({ icon: 'info', title: 'Hoy es feriado', text: 'Puedes reservar para otro día disponible.' });
+    } else if (esAuditorio && (diaSemana === 0 || diaSemana === 6)) {
+      Swal.fire({ icon: 'info', title: 'Fin de semana (auditorios)', text: 'En auditorios no se permiten reservas sábados ni domingos.' });
+    }
   }
-}
 
   const modal = new bootstrap.Modal(document.getElementById('modalReserva'));
   modal.show();
-  const container = document.getElementById('turnos-del-dia');
-  container.innerHTML = '<h6 class="text-muted">Seleccione un día en el calendario para ver las reservas actuales.</h6>';
+  document.getElementById('turnos-del-dia').innerHTML = '<h6 class="text-muted">Seleccione un día en el calendario para ver las reservas actuales.</h6>';
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarFeriados();
 });
 
+// <!-- INICIO DE MODIFICACIÓN: no recargar reservas al abrir el modal -->
 document.getElementById('modalReserva').addEventListener('shown.bs.modal', async () => {
   if (!espacioSeleccionadoId) return;
   await mostrarCalendario(espacioSeleccionadoId);
-  setRestricciones(); // asegura restricciones tras abrir modal
+  setRestricciones();
+  aplicarBloqueoFinDeSemana();
 });
+// <!-- FIN DE MODIFICACIÓN -->
 
 document.getElementById('modalReserva').addEventListener('hidden.bs.modal', () => {
   const form = document.getElementById('formulario-espacio');
@@ -765,18 +894,34 @@ document.getElementById('formulario-espacio').addEventListener('submit', async e
   e.preventDefault();
 
   setRestricciones();
-  if (!validarHoras()) return; // bloqueo final de horas inválidas
+  if (!validarHoras()) return;
+
+  const participantesVal = parseInt(document.getElementById('participantes').value, 10);
+  if (Number.isNaN(participantesVal) || participantesVal < 0) {
+    Swal.fire({ icon:'error', title:'Número de participantes inválido', text:'No se permiten valores negativos.' });
+    return;
+  }
+
+  const fi = document.getElementById('fecha_inicio').value;
+  const ff = document.getElementById('fecha_fin').value;
+  const inicioDay = fi ? new Date(fi + 'T00:00:00').getDay() : null;
+  const finDay = ff ? new Date(ff + 'T00:00:00').getDay() : null;
+  const inicioFinde = inicioDay === 0 || inicioDay === 6;
+  const finFinde = finDay === 0 || finDay === 6;
+  if (esAuditorioSeleccionado() && !isRectorado() && (inicioFinde || finFinde)) {
+    Swal.fire({ icon:'info', title:'Fin de semana no es permitido realizar reservas', text:'Solo personal autorizado puede reservar sábados o domingos en auditorios.' });
+    return;
+  }
 
   const normalizar = s => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toUpperCase();
   const espacioNombre = document.getElementById("nombre").value;
   const esAuditorio = ["AUDITORIO A","AUDITORIO V","AUDITORIO W"].includes(normalizar(espacioNombre));
 
-  // Validación auditorios: 08:00–17:00 y fin >= inicio (sin popups al elegir fecha)
   if (esAuditorio && !isRectorado()) {
     const hi = document.getElementById("hora_inicio").value;
     const hf = document.getElementById("hora_fin").value;
-    const fi = document.getElementById("fecha_inicio").value;
-    const ff = document.getElementById("fecha_fin").value;
+    const fi2 = document.getElementById("fecha_inicio").value;
+    const ff2 = document.getElementById("fecha_fin").value;
 
     if (hi && (hi < "08:00" || hi > "17:00")) {
       Swal.fire({ icon: 'error', title: 'Hora de inicio inválida', text: 'En auditorios, la hora de inicio debe estar entre 08:00 y 17:00.' });
@@ -786,17 +931,8 @@ document.getElementById('formulario-espacio').addEventListener('submit', async e
       Swal.fire({ icon: 'error', title: 'Hora de fin inválida', text: 'En auditorios, la hora de fin debe estar entre 08:00 y 17:00.' });
       return;
     }
-    if (fi && ff && fi === ff && hi && hf && hf < hi) {
+    if (fi2 && ff2 && fi2 === ff2 && hi && hf && hf < hi) {
       Swal.fire({ icon: 'error', title: 'Error en las horas', text: 'La hora de fin no puede ser menor a la de inicio.' });
-      return;
-    }
-  }
-
-  // Link de recursos (obligatorio en auditorios)
-  if (esAuditorio) {
-    const recursos = document.getElementById("recursos").value.trim();
-    if (!recursos) {
-      Swal.fire({ icon: 'warning', title: 'Campo requerido', text: 'Debe ingresar un link de recursos en este espacio.' });
       return;
     }
   }
@@ -808,25 +944,26 @@ document.getElementById('formulario-espacio').addEventListener('submit', async e
   }
 
   espacioSeleccionadoId = document.getElementById('espacioSeleccionado').value;
-  horarioValidado = validarMismoHorario();
+  const horarioValidado = validarMismoHorario();
   if (!horarioValidado) return;
 
   const archivo = document.getElementById('archivo').files[0];
   if (!archivo) {
-    return Swal.fire({ icon:'warning', title:'Archivo requerido', text:'Debe cargar el Excel de participantes.' });
+    return Swal.fire({ icon:'warning', title:'Archivo requerido', text:'Debe cargar un archivo en formato .xlsx, .xls, .doc, .docx o .pdf.' });
   }
 
   const allowedTypes = [
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'application/vnd.ms-excel',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/msword'
+    'application/msword',
+    'application/pdf'
   ];
-  const allowedExtensions = ['xlsx', 'xls', 'docx'];
+  const allowedExtensions = ['xlsx', 'xls', 'doc', 'docx', 'pdf'];
   const extension = archivo.name.split('.').pop().toLowerCase();
 
-  if (!allowedTypes.includes(archivo.type) || !allowedExtensions.includes(extension)) { 
-    return Swal.fire({ icon:'error', title:'Tipo de archivo inválido', text:'Debe ser .xlsx, .xls, doc o .docx' });
+  if (!(allowedTypes.includes(archivo.type) || allowedExtensions.includes(extension))) { 
+    return Swal.fire({ icon:'error', title:'Tipo de archivo inválido', text:'El archivo debe ser .xlsx, .xls, .doc, .docx o .pdf.'});
   }
 
   const reader = new FileReader();
@@ -857,6 +994,15 @@ document.getElementById('formulario-espacio').addEventListener('submit', async e
       nombre_evento: document.getElementById('nombre_evento').value
     };
 
+    Swal.fire({
+        title: 'Enviando Solicitud',
+        text: 'Por favor espere un momento...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
     try {
       const resp = await fetch('https://hook.us2.make.com/v81kdbf2dfxwswvwizjip1xxqk73h5ng', {
         method:'POST',
@@ -864,6 +1010,25 @@ document.getElementById('formulario-espacio').addEventListener('submit', async e
         body:JSON.stringify(datos)
       });
       if (resp.ok) {
+        const espacioId = datos.espacio;
+        const nuevaReserva = {
+            inicio_reserva: datos.fecha_inicio,
+            fin_reserva: datos.fecha_fin,
+            hora_inicio: datos.hora_inicio,
+            hora_fin: datos.hora_fin,
+            nombre_evento: datos.nombre_evento,
+            actividad: datos.actividad,
+            estado_solicitud: 'PENDIENTE',
+            id_reserva: 'NUEVA-' + Date.now()
+        };
+
+        if (!reservasPorEspacio[espacioId]) {
+            reservasPorEspacio[espacioId] = [];
+        }
+        reservasPorEspacio[espacioId].push(nuevaReserva);
+
+        await mostrarCalendario(espacioId);
+
         Swal.fire({icon:'success',title:'Reserva enviada',text:'La solicitud fue enviada correctamente.'})
           .then(()=> bootstrap.Modal.getInstance(document.getElementById('modalReserva')).hide());
       } else throw new Error('No se pudo enviar la solicitud');
@@ -890,7 +1055,7 @@ function traspasoDiasFeriados(fecha, feriado) {
     });
   };
 
-  const diaSemana = fecha.getDay(); // 0=domingo, 1=lunes...
+  const diaSemana = fecha.getDay();
   if (esInamovible(fecha)) return fecha;
   const nuevaFecha = new Date(fecha);
   let hayFeriado;
@@ -963,9 +1128,24 @@ async function obtenerFeriadosEcuador() {
 
 // --- Calendario FullCalendar ---
 async function mostrarCalendario(idEspacio){
-  const eventos = reservasPorEspacio[idEspacio] || [];
+  // **Usar SIEMPRE las activas**
+  const eventosActivos = filtrarActivas(reservasPorEspacio[idEspacio]) || [];
   const feriados = await obtenerFeriadosEcuador();
+
   if(calendar) calendar.destroy();
+
+  // Opcional/robusto: también pasamos start/end al calendario
+  const fcEvents = (eventosActivos || []).map(e => {
+    const ini = String(e.inicio_reserva || '').slice(0,10);
+    const fin = String(e.fin_reserva || '').slice(0,10);
+    const hi = (e.hora_inicio || '00:00').slice(0,5);
+    const hf = (e.hora_fin || '23:59').slice(0,5);
+    return {
+      start: `${ini}T${hi}:00`,
+      end:   `${fin}T${hf}:00`,
+      display: 'background'
+    };
+  });
 
   calendar = new FullCalendar.Calendar(document.getElementById('calendar-modal'), {
     locale:'es',
@@ -974,7 +1154,7 @@ async function mostrarCalendario(idEspacio){
     aspectRatio: 1.5,
     fixedWeekCount:false,
     eventDisplay:'background',
-    events: eventos,
+    events: [...fcEvents, ...feriados],
     showNonCurrentDates: false,
     headerToolbar:{ left:'prev,next', center:'title', right:'today'},
     buttonText:{ today:'Hoy' },
@@ -985,7 +1165,6 @@ async function mostrarCalendario(idEspacio){
         return fechaFeriado.toISOString().split('T')[0] === info.dateStr;
       });
 
-      // Bloquear feriado solo si NO es Rectorado
       if (esFeriado && !isRectorado()) {
         Swal.fire({
           icon: 'info',
@@ -995,16 +1174,31 @@ async function mostrarCalendario(idEspacio){
         const container = document.getElementById('turnos-del-dia');
         container.innerHTML = '<h6 class="text-muted">Seleccione otra fecha disponible en el calendario.</h6>';
 
-        // Limpiar selección, pero mantener el formulario habilitado
         document.getElementById('fecha_inicio').value = "";
         document.getElementById('fecha_fin').value = "";
         document.getElementById('hora_inicio').value = "";
         document.getElementById('hora_fin').value = "";
         document.getElementById('btn-enviar').setAttribute('disabled', 'disabled');
-
-        // Mantener inputs habilitados para que el usuario pueda seguir interactuando
         document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = false);
+        return;
+      }
 
+      const day = new Date(info.dateStr + 'T00:00:00').getDay();
+      const esFinde = (day === 0 || day === 6);
+      if (esAuditorioSeleccionado() && !isRectorado() && esFinde) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Fin de semana no permitido (auditorios)',
+          text: 'Solo Rectorado puede reservar sábados o domingos en auditorios.'
+        });
+        const container = document.getElementById('turnos-del-dia');
+        container.innerHTML = '<h6 class="text-muted">Seleccione otra fecha disponible de lunes a viernes.</h6>';
+        document.getElementById('fecha_inicio').value = "";
+        document.getElementById('fecha_fin').value = "";
+        document.getElementById('hora_inicio').value = "";
+        document.getElementById('hora_fin').value = "";
+        document.getElementById('btn-enviar').setAttribute('disabled', 'disabled');
+        document.querySelectorAll("#formulario-espacio input, #formulario-espacio select, #formulario-espacio textarea").forEach(el => el.disabled = false);
         return;
       }
 
@@ -1018,33 +1212,45 @@ async function mostrarCalendario(idEspacio){
 
       if (fechaSeleccionada < hoy) return;
 
-      // set fechas
       document.getElementById('fecha_inicio').value = info.dateStr;
       document.getElementById('fecha_fin').value   = info.dateStr;
 
-      // limpiar horas para evitar validaciones a mitad de edición
       document.getElementById('hora_inicio').value = '';
       document.getElementById('hora_fin').value    = '';
 
-      setRestricciones(); // min/max tras elegir día
-
-      mostrarReservasDelDia(info.dateStr, eventos);
+      setRestricciones();
+      mostrarReservasDelDia(info.dateStr, eventosActivos);
     },
     dayCellDidMount: arg => {
       const hoy = new Date(); hoy.setHours(0,0,0,0);
       const f = new Date(arg.date); f.setHours(0,0,0,0);
       if(f<hoy){ arg.el.classList.add('fc-day-disabled'); arg.el.style.pointerEvents='none'; arg.el.style.opacity='0.5'; }
+
+      const d = f.getDay();
+      if (esAuditorioSeleccionado() && !isRectorado() && (d === 0 || d === 6)) {
+        arg.el.classList.add('fc-dia-finsemana');
+        arg.el.style.pointerEvents='none';
+        arg.el.style.opacity='0.5';
+      }
     },
-    datesSet: ()=> {pintarDiasReservados(eventos); pintarDiasFeriados(feriados);},
+    datesSet: ()=> {
+      pintarDiasReservados(eventosActivos);
+      pintarDiasFeriados(feriados);
+      aplicarBloqueoFinDeSemana();
+    },
   });
   calendar.render();
 }
 
 function pintarDiasReservados(eventos){
   const dias = new Set();
-  eventos.forEach(e=>{
-    let inicio=new Date(e.inicio_reserva), fin=new Date(e.fin_reserva);
-    for(let d=new Date(inicio); d<=fin; d.setDate(d.getDate()+1)) dias.add(d.toISOString().split('T')[0]);
+  (eventos||[]).forEach(e=>{
+    const ini = parseSoloFecha(String(e.inicio_reserva || '').slice(0,10));
+    const fin = parseSoloFecha(String(e.fin_reserva || '').slice(0,10));
+    if (!ini || !fin) return;
+    for(let d = new Date(ini); d <= fin; d.setDate(d.getDate()+1)) {
+      dias.add(ymdLocal(d));
+    }
   });
   document.querySelectorAll('.fc-daygrid-day').forEach(c=>{
     const fecha=c.getAttribute('data-date');
@@ -1061,33 +1267,82 @@ function pintarDiasFeriados(feriados) {
   });
 }
 
+// ========= Utilidades de texto =========
+function extraerTextoFlexible(v) {
+  if (v == null) return '';
+  if (typeof v === 'string') return v.trim();
+  if (typeof v === 'number') return String(v);
+  if (typeof v === 'object' && 'value' in v) return String(v.value ?? '').trim();
+  return String(v ?? '').trim();
+}
+
+function obtenerNombreEventoFlexible(e) {
+  if (!e || typeof e !== 'object') return '';
+
+  const candidatos = [
+    'nombre_evento', 'nombreEvento', 'NombreEvento', 'nombre evento', 'nombre del evento',
+    'evento', 'nombre', 'titulo', 'título', 'title', 'actividad', 'descripcion', 'descripción'
+  ];
+
+  for (const k of candidatos) {
+    if (Object.prototype.hasOwnProperty.call(e, k)) {
+      const val = extraerTextoFlexible(e[k]);
+      if (val) return val;
+    }
+  }
+
+  const keys = Object.keys(e);
+  for (const k of keys) {
+    const norm = k.toLowerCase().replace(/[\s_]/g, '');
+    if (norm.includes('nombre') && norm.includes('evento')) {
+      const val = extraerTextoFlexible(e[k]);
+      if (val) return val;
+    }
+  }
+
+  const act = extraerTextoFlexible(e.actividad);
+  const tipo = extraerTextoFlexible(e.tipo_evento || e.tipo);
+  if (act && tipo) return `${act} (${tipo})`;
+
+  return act;
+}
+
+// === Vista del día: número de reserva, horas y leyenda "Reserva pendiente" ===
 function mostrarReservasDelDia(fechaSeleccionada, eventos) {
   const container = document.getElementById('turnos-del-dia');
-  const fecha = new Date(fechaSeleccionada + 'T00:00:00');
-  const reservasDelDia = eventos.filter(e => {
-    const inicio = new Date(e.inicio_reserva);
-    const fin = new Date(e.fin_reserva);
-    return fecha >= new Date(inicio.toDateString()) && fecha <= new Date(fin.toDateString());
+  const fecha = parseSoloFecha(fechaSeleccionada);
+
+  const eventosActivos = filtrarActivas(eventos);
+  const reservasDelDia = (eventosActivos || []).filter(e => {
+    const inicio = parseSoloFecha(String(e.inicio_reserva || '').slice(0,10));
+    const fin    = parseSoloFecha(String(e.fin_reserva || '').slice(0,10));
+    if (!inicio || !fin) return false;
+    return fecha >= parseSoloFecha(ymdLocal(inicio)) && fecha <= parseSoloFecha(ymdLocal(fin));
   });
 
   if (reservasDelDia.length === 0) {
     container.innerHTML = '<h6 class="text-muted">No hay reservas para este día.</h6>';
     return;
   }
+
   let html = '<div class="list-group">';
   reservasDelDia.forEach(e => {
-    const fechaInicio = new Date(e.inicio_reserva);
-    const fechaFin = new Date(e.fin_reserva);
-    const diaInicio = fechaInicio.toLocaleDateString('es-EC', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    const horaInicio = e.hora_inicio;
-    const diaFin = fechaFin.toLocaleDateString('es-EC', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    const horaFin = e.hora_fin;
-    const codigoReserva = e.id_reserva ? `Reserva R${e.id_reserva}` : 'Reserva sin código';
+    const fechaInicio = parseSoloFecha(String(e.inicio_reserva || '').slice(0,10));
+    const fechaFin    = parseSoloFecha(String(e.fin_reserva || '').slice(0,10));
+
+    const diaInicio = fechaInicio.toLocaleDateString('es-EC', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    const diaFin    = fechaFin.toLocaleDateString('es-EC', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+    const nombreEvento = obtenerNombreEventoFlexible(e);
+    const codigo = e?.id_reserva ?? 'sin código';
+    const pendiente = esReservaPendiente(e);
+
     html += `
       <div class="list-group-item">
-        <h6 class="fw-bold text-primary mb-2">${codigoReserva}</h6>
-        <p class="mb-1"><strong>Inicio Reserva:</strong> ${diaInicio} - ${horaInicio}</p>
-        <p class="mb-1"><strong>Fin Reserva:</strong> ${diaFin} - ${horaFin}</p>
+        <h6 class="fw-bold text-primary mb-2">Reserva ${codigo}: ${nombreEvento || '—'}</h6>
+        <p class="mb-1"><strong>Inicio Reserva:</strong> ${diaInicio} - ${e.hora_inicio || ''}</p>
+        <p class="mb-1"><strong>Fin Reserva:</strong> ${diaFin} - ${e.hora_fin || ''}</p>
+        ${ pendiente ? `<p class="mb-0"><span class="badge rounded-pill bg-warning text-dark">Reserva pendiente por aprobar</span></p>` : '' }
       </div>`;
   });
   html += '</div>';
@@ -1106,7 +1361,8 @@ function validarMismoHorario() {
   const nuevaInicio = new Date(`${fecha}T${hora}:00`).getTime();
   const nuevaFin = new Date(`${fechaFin}T${horaFin}:00`).getTime();
 
-  const reservas = reservasPorEspacio[espacioSeleccionadoId] || [];
+  // **Usar solo reservas ACTIVAS para comprobar conflictos**
+  const reservas = filtrarActivas(reservasPorEspacio[espacioSeleccionadoId]) || [];
   let conflictoSolapamiento = false;
   let conflictoHoraExtra = false;
 
